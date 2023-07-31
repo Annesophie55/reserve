@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rdv index{% endblock %}
+
+{% block body %}
+    <h1>Rdv index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Status</th>
+                <th>DayHour</th>
+                <th>Duration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rdv in rdvs %}
+            <tr>
+                <td>{{ rdv.id }}</td>
+                <td>{{ rdv.createdAt ? rdv.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rdv.status ? rdv.status|json_encode : '' }}</td>
+                <td>{{ rdv.dayHour ? rdv.dayHour|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rdv.duration }}</td>
+                <td>
+                    <a href="{{ path('app_rdv_show', {'id': rdv.id}) }}">show</a>
+                    <a href="{{ path('app_rdv_edit', {'id': rdv.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rdv_new') }}">Create new</a>
+{% endblock %}

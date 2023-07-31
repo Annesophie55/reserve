@@ -1,0 +1,422 @@
+/* assets/styles/app.css */
+*, ::before, ::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* body {
+  background-color: lightgray;
+} */
+
+/* HOMEPAGE
+header */
+header.homepage{
+  width: 100%;
+  height: 100vh;
+  background-image: url("../images/vecteezy_female-hand-and-flower-in-water_11927403_767.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
+.overlay1{
+  position: absolute;
+  width: 100%;
+  height: 102%;
+  background: rgba(0,0,0,0.4);
+  z-index: 2;
+}
+header h1{
+  font-size: clamp(40px, 5vw, 80px);
+  width: 80%;
+  color: blue;
+  -webkit-text-stroke: 0.2px;
+  -webkit-text-stroke-color: #0b030a;
+  margin: 250px 0 400px 0;
+  font-family: 'Lobster', cursive;
+  letter-spacing: 5px;
+  position: absolute;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+/* header */
+
+/* Profile admin */
+.adminProfil{
+  width: 100%;
+  margin: 80px 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.adminPhoto{
+  width: 40%;
+}
+.adminPhoto img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.adminAbout{
+  width: 40%;
+  text-align: center;
+  margin-left: 60px;
+  font-family: 'Itim', cursive;
+}
+
+/* Profile admin
+Services details */
+.activity{
+  height: 300px;
+}
+.bgFixed{
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/vecteezy_lotus-flower-stone-background-illustration-ai-generative_23698733_536\ \(1\).jpg");
+  background-color: rgba(255, 255, 255, 0.8);
+  background-size: cover;
+  background-attachment: fixed;
+}
+.overlay2{
+  position: absolute;
+  width: 100%;
+  height: 300px;
+  background: rgba(0,0,0,0.4);
+}
+
+.details{
+  margin: 60px;
+}
+.details h3{
+  font-family: 'Lobster', cursive;
+  padding: 70px 0;  
+}
+.details p{
+  font-family: 'Itim', cursive;
+  text-align: center;
+}
+.containerCard{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 60px 0;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+.cardService{
+  color: aliceblue;
+  width: 350px;
+  background-color: #FF005A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 20px;
+}
+.cardService img{
+  width: 120px;
+
+}
+.cardService h3{
+  font-family: 'Lobster', cursive;
+  padding: 10px 0;  
+}
+.cardService p{
+  text-align: justify;
+  color: aliceblue;
+}
+/*Services details*/
+/* Carte services */
+
+
+
+@media screen and (max-device-width: 833px) {
+  .adminProfil{
+    flex-direction: column;
+  }
+  .adminPhoto{
+    width: 60%;
+  }
+  .adminAbout{
+    width: 90%;
+    margin: 25px 0;
+    
+  }
+  
+}
+
+/* HEADER */
+nav{
+  width: 100%;
+  display: flex;
+  height: max-content;
+  background-color: white;
+  border-bottom: #FF005A solid 2px;
+}
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.brandContainer{
+  display: flex;
+}
+nav .brand{
+  width: 50px;
+  margin: 10px 0 5px 15px;
+
+  flex-wrap: nowrap;
+}
+.brand img{
+  width:100%;
+}
+.siteName{
+  font-family: 'Norican', cursive;
+  font-size: 30px;
+  margin: 15px 10px;
+  
+}
+nav .user{
+  width: 50px;
+  margin: 10px 15px 5px 15px;
+}
+.user img{
+  width:100%;
+}
+
+.navigation{
+  margin: auto;
+}
+.navListLG{
+  display: inline-flex;
+  list-style-type: none;
+  font-family: 'Itim', cursive;
+  font-size: 20px;
+  color: darkorchid;
+top: 50%;}
+      
+.navListLG li:hover .modal{
+
+          display: block;
+          background-color: #fff;
+        }
+.navListLG li{
+  margin-left: 17px;
+}
+        
+.navListLG a{
+        text-decoration: none;
+        color:black;
+        font-family: 'Itim';
+        font-size: 20px;
+        }
+
+.navList a{
+  text-decoration: none;
+  letter-spacing: 3px;
+  color:#210202;
+  font-family: 'Itim';
+  font-size: 20px;
+} */
+.navListLG .navItem a::after{
+  content: "";
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background-color: rgb(10, 0, 0);
+  transform: scaleX(0);
+  transition: all 0.4s ease-in-out;
+
+  }
+  
+  .navListLG li a:hover::after{
+    content: "";
+    display: block;
+    transform: scaleX(1);
+  
+  }
+
+
+/* modal */
+
+
+.navList li:hover .modal{
+      display: block;
+      background-color: #fff;
+    }
+
+.modal{
+  position: absolute;
+  display: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  z-index: 1;}
+      
+.modal ul li a{
+  color: black !important;
+}
+
+.navList:hover ~.modal{
+  display: block;
+} 
+.modal li{
+  list-style-type: none;
+}    
+
+
+
+
+
+/* HEADER */
+
+/* Affichage par service (service/show.html.twig) */
+.serviceContainer{
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.serviceBgcImg h1{
+  font-family: 'Norican';
+  text-align: center;
+  font-size: 35px;
+  text-transform: capitalize;
+  font-weight: 300;
+  line-height: 200px;
+
+}
+.serviceBgcImg{
+  width: 100%;
+  height: 200px;
+  background-image: url("../images/orchidee.jpg");
+  background-color: rgba(255, 255, 255, 0.8);
+  background-size: contain;
+  background-attachment: fixed;
+  z-index: -1;
+}
+.serviceBloc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px;
+}
+.serviceBloc img{
+  width: 45%;
+  border-radius: 15px;
+  box-shadow: -2px 3px 5px black;
+}
+.serviceBloc p{
+  width: 50%;
+  margin-left: 20px;
+  padding: 10px;
+  font-family: 'Itim';
+  font-size: 20px;
+  text-align: justify;
+}
+
+/* Affichage par service (service/show.html.twig) */
+
+/* CALENDRIER */
+
+.calendarContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.wrapper{
+  width: 450px;
+  background-color: #fff;
+  border-radius: 10px;  
+  box-shadow: -2px 3px 5px black;
+}
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  color: #878787;
+  margin: 0 1px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 50%;
+}
+header .icons span:hover{
+  background-color: #f2f2f2;
+}
+header .icons span:last-child{
+  margin-right: -10px;
+}
+.calendar{
+  padding: 20px;
+}
+.calendar ul{
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar .weeks li{
+  font-weight: 500;
+}
+.calendar ul li{
+  position: relative;
+  width: calc(100% / 7);
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.calendar .days li.inactive{
+  color: #aaa;
+}
+.calendar .days li.active::before{
+  background-color: #9d06a0;
+}
+.calendar .days li.active{
+  color: #FFFF;
+}
+
+
+.calendar .days li::before{
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFFF;
+
+}
+
+.days li:hover::before{
+  background-color: #f2f2f2;
+  content: "";
+}

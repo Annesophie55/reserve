@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Rdv{% endblock %}
+
+{% block body %}
+    <h1>Create new Rdv</h1>
+
+    {{ include('rdv/_form.html.twig') }}
+
+    <a href="{{ path('app_rdv_index') }}">back to list</a>
+{% endblock %}

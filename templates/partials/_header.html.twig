@@ -1,0 +1,39 @@
+<nav  class="navbar">
+    <div class="brandContainer">
+      <div class="brand">
+        <img src="../images/flower_2859751.png" alt="">
+      </div>
+      <span class="siteName">Mina Louve Doula
+      </span>
+    </div>
+    <div class="navigation">
+      <ul class="navListLG">
+        <li class="navItem">
+          <a href="{{ path('app_home') }}">Accueil
+          </a>
+        </li>
+        <li class="serviceItem">
+          <a href="#" >Services</a>
+          <div class="modal">
+            <ul>
+              {% for service in services.getService() %}
+              <li>
+                <a href="{{ path('app_service_show', {id:service.id}) }}">{{ service.name }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>      
+          </div>
+        </li>
+        <li class="navItem">
+          <a href="">Agenda</a>
+        </li>
+        <li class="navItem">
+          <a href="">Contact</a>
+        </li>
+      </ul>
+    </div> 
+  <div class="user">
+    <img src="../images/profile_8645224.png" alt="">
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+
+
+{% block body %}
+<section>
+    <div class="takeRdv-Container">
+        <h1>Prenez rendez-vous avec votre Doula</h1>
+        <div class="takeRdv-form">
+            {% include "components/_calendar.html.twig" %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Save') }}</button>
+            {{ form_end(form) }}
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
+
+
