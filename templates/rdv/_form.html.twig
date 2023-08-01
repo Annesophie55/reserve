@@ -4,13 +4,24 @@
 <section>
     <div class="takeRdv-Container">
         <h1>Prenez rendez-vous avec votre Doula</h1>
-        <div class="takeRdv-form">
-            {% include "components/_calendar.html.twig" %}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn">{{ button_label|default('Save') }}</button>
-            {{ form_end(form) }}
-        </div>
+        
+<form action="{{ path('app_rdv_new') }}" method="post">
+    <!-- Mon calendrier personnalisé ici -->
+    {% include "components/_calendar.html.twig" %}
+
+    <label for="hour">Choisissez une heure :</label>
+    <select name="hour" id="hour">
+    <option value="09:00">09:00</option>
+    <option value="10:30">10:30</option>
+    <option value="14:00">14:00</option>
+    <option value="15:30">15:30</option>
+    </select>
+
+    <!-- Champ caché pour la durée, elle sera définie côté serveur -->
+    <input type="hidden" name="duration" value="90">
+
+    <button type="submit">Enregistrer</button>
+</form>
         
     </div>
 </section>

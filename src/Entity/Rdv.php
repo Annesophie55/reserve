@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\RdvRepository;
+use DateInterval;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RdvRepository;
 
 #[ORM\Entity(repositoryClass: RdvRepository::class)]
 class Rdv
@@ -23,8 +24,9 @@ class Rdv
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dayHour = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $duration = null;
+    #[ORM\Column(type: Types::INTERVAL, nullable: true)]
+    private ?DateInterval $duration = null;
+
 
     public function getId(): ?int
     {
@@ -67,12 +69,12 @@ class Rdv
         return $this;
     }
 
-    public function getDuration(): ?string
+    public function getDuration(): ?DateInterval
     {
         return $this->duration;
     }
 
-    public function setDuration(?string $duration): static
+    public function setDuration(?\DateInterval $duration): static
     {
         $this->duration = $duration;
 
