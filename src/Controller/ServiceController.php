@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Form\ServiceType;
+use App\Repository\CommentRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/service')]
 class ServiceController extends AbstractController
@@ -17,10 +19,31 @@ class ServiceController extends AbstractController
     #[Route('/', name: 'app_service_index', methods: ['GET'])]
     public function index(ServiceRepository $serviceRepository): Response
     {
+        $services = $serviceRepository->findAll();
+
         return $this->render('service/index.html.twig', [
-            'services' => $serviceRepository->findAll(),
+            'services' => $services,
         ]);
     }
+
+    #[Route('/services/json', name: 'app_services_json')]
+    public function getServicesJson(ServiceRepository $serviceRepository): JsonResponse
+    {
+        $services = $serviceRepository->findAll();
+        $serviceData = [];
+    
+        foreach ($services as $service) {
+            $serviceData[] = [
+                'id' => $service->getId(),
+                'name' => $service->getName(),
+                'url' => $this->generateUrl('app_service_show', ['id' => $service->getId()]),
+            ];
+        }
+    
+        return $this->json(['services' => $serviceData]);
+    }
+    
+
 
     #[Route('/new', name: 'app_service_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -43,10 +66,13 @@ class ServiceController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_service_show', methods: ['GET'])]
-    public function show(Service $service): Response
+    public function show(Service $service, CommentRepository $commentRepository): Response
     {
+        $comments = $commentRepository->findLatest(5);
+
         return $this->render('service/show.html.twig', [
             'service' => $service,
+            'comments' => $comments,
         ]);
     }
 
@@ -76,6 +102,6 @@ class ServiceController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_service_index');
     }
 }

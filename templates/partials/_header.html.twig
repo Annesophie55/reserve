@@ -1,3 +1,10 @@
+
+
+<script>
+    const servicesJsonUrl = "{{ path('app_services_json') }}";
+</script>
+
+
 <nav  class="navbar">
     <div class="brandContainer">
       <div class="brand">
@@ -12,12 +19,12 @@
           <a href="{{ path('app_home') }}">Accueil
           </a>
         </li>
-        <li class="serviceItem">
+        <li class="serviceItem" id="serviceItem">
           <a href="#" >Services</a>
           <div class="modal">
             <ul>
-              {% for service in services.getService() %}
-              <li>
+              {% for service in services %}
+                <li>
                 <a href="{{ path('app_service_show', {id:service.id}) }}">{{ service.name }}
                 </a>
               </li>
@@ -26,14 +33,45 @@
           </div>
         </li>
         <li class="navItem">
-          <a href="">Agenda</a>
+      {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('app_rdv_show') }}">Agenda</a>
+      {% elseif app.user %}
+        <a href="{{ path('app_rdv_appointements') }}">Réservation</a>
+      
+      {% else %}
+        <a href="{{ path('app_login') }}">Réservation</a>
+      {% endif %}
+
         </li>
+
+        <li>
+        {% if is_granted("ROLE_ADMIN") %}
+      <a href="{{ path('app_admin') }}">Mon espace</a>  
+        {% elseif app.user and app.user.getRdv()|length > 0 %}
+      <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
+      {% endif %}</li>
+        
+        
         <li class="navItem">
           <a href="">Contact</a>
         </li>
       </ul>
     </div> 
   <div class="user">
-    <img src="../images/profile_8645224.png" alt="">
+{% if app.user != is_granted("ROLE_ADMIN") %}    
+    <a class="addComments" href="{{ path('app_comment_new') }}"><img src="../images/comment.png" alt="Laisser un commentaire"></a>
+{% endif %}
+
+{% if app.user %}
+{# Code à exécuter si un utilisateur est connecté #}
+    <a href="{{ path('app_logout') }}"><img src="../images/userLogout.png" alt="Se déconnecter" ></a>
+{% else %} 
+    {# Code à exécuter si aucun utilisateur n'est connecté#}
+    <a href="{{ path('app_login') }}"><img src="../images/userLogin.png" alt="Se connecter"></a>
+{% endif %}
+
+
+
+
   </div>
 </nav>

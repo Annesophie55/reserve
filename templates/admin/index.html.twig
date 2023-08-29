@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+<div class="adminContainer">
+    <h1>Bienvenue sur votre espace administrateur</h1>
+    <ul class="adminLinks">
+        <li><a href="{{ path('app_service_index') }}">Gérer vos services</a></li>
+        <li><a href="{{ path('app_comment_index')}}">Consulter et gérer les commentaires</a></li>
+        <li><a href="{{ path('app_rdv_show') }}">Consulter votre agenda</a></li>
+        <li><a href="">Consulter vos messages</a></li>
+        <li><a href="{{ path('app_user')}}">Accéder à vos fiches clients</a></li>
+    </ul>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<footer>
+  <div class="brandContainer">
+    <div class="brand">
+      <img src="../images/flower_2859751.png" alt="">
+    </div>
+    <span class="siteName">Mina Louve Doula
+    </span>
+  </div> 
+  <ul class="listLinks">
+    <li><a href="{{ path('app_home')}}">Accueil</a></li>
+    {% for service in services %}
+    <li>
+    <a href="{{ path('app_service_show', {id:service.id}) }}">{{ service.name }}
+    </a>
+    </li>
+    {% endfor %}
+    <li>
+    {% if is_granted("ROLE_ADMIN") %}
+    <a href="{{ path('app_rdv_show') }}">Agenda</a>
+    {% elseif app.user %}
+    <a href="{{ path('app_rdv_appointements') }}">Réservation</a>
+    {% else %}
+    <a href="{{ path('app_login') }}">Réservation</a>
+    {% endif %}
+    </li>
+
+
+    <li><a href="">Contact</a></li>
+    <li>
+      {% if is_granted("ROLE_ADMIN") %}
+      <a href="{{ path('app_admin') }}">Mon espace</a>  
+      {% elseif app.user and app.user.getRdv()|length > 0 %}
+      <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
+      {% endif %}
+    </li>    
+  </ul> 
+
+  <ul class="externalLinks">
+    <li><a href="">Crédits photos</a></li>
+    <li><a href="">Conditions générales d'utilisation</a></li>
+    <li><a href="">Lien vidéo doula</a></li>
+  </ul>
+
+  <ul class="adress">
+  <li>1 rue des lilas</li>
+  <li>11230 Montréal</li>
+  </ul>
+  
+</footer>

@@ -22,6 +22,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "fullcalendar": "^6.1.8"
+        "@fullcalendar/core": "^6.1.8",
+        "fullcalendar": "^6.1.8",
+        "sweetalert": "^2.1.2"
     }
 }

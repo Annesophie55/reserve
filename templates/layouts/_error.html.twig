@@ -1,0 +1,10 @@
+{% if app.flashes %}
+    <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur {{ exception.statusCode }}',
+                text: '{{ exception.statusText|escape('js') }}',
+                footer: '<a href="{{ path('app_home')}}">Retourner à l\'accueil</a>'
+            });
+      </script>
+{% endif %}

@@ -3,37 +3,29 @@
 {% block title %}Service index{% endblock %}
 
 {% block body %}
-    <h1>Service index</h1>
+   <div class="servicesContainer">
+        <h1>Vos prestations</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for service in services %}
-            <tr>
-                <td>{{ service.id }}</td>
-                <td>{{ service.description }}</td>
-                <td>{{ service.name }}</td>
-                <td>{{ service.amount }}</td>
-                <td>
-                    <a href="{{ path('app_service_show', {'id': service.id}) }}">show</a>
-                    <a href="{{ path('app_service_edit', {'id': service.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+     <div class="serviceList">
 
-    <a href="{{ path('app_service_new') }}">Create new</a>
+         {% for service in services %}
+             <ul>
+                 <li>{{ service.name }}</li>
+                 <li>{{ service.description }}</li>
+                 <li>{{ service.amount }}</li>
+                 <li>
+                    <a href="{{ path('app_service_edit', {'id': service.id}) }}">Modifier</a>
+                         
+    
+                 </li>
+                 <li>{{ include('service/_delete_form.html.twig') }}</li>
+             </ul>
+         {% else %}
+             <div>
+                 <span colspan="5">La liste de vos prestations est vide.</span>
+             </div>
+         {% endfor %}
+    
+         <a href="{{ path('app_service_new') }}"><img src="../images/add.png" alt=""></a>
+   </div>
 {% endblock %}

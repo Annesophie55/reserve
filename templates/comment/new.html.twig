@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+<section class="commentFormContainer">
+    <h1>Laissez un commentaire sur votre expérience avec Doula Louve Mina.</h1>
+
+    {{ include('comment/_form.html.twig') }}
+</section>
+{% endblock %}

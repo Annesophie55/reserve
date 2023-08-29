@@ -1,0 +1,8 @@
+<div class="noteContainer">
+  {% for note in notesData %}
+  <ul>
+    <li>{{ note.createdAt }}</li>
+    <li>{{ note.content }}</li>
+  </ul>
+  {% endfor %}
+</div>

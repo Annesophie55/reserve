@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+<div class="userListContainer">
+    <h1>{{ user.firstName }} {{ user.name }}</h1>
+
+<div class="userInfo">
+
+        <ul>
+            <li>{{ user.phone }} </li>
+            <li>{{ user.email }} </li>
+        </ul>
+        {{ include('user/_delete.html.twig') }}
+                <p><a href="{{ path('app_note_new', {'user': user.id }) }}">Créer une note</a></p>
+</div>
+{{ include('note/show.html.twig') }}
+</div>
+{% endblock %}

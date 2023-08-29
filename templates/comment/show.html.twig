@@ -1,0 +1,16 @@
+
+    {% for comment in comments %}
+
+        <div class="commentCard">
+            <a href="{{ path('app_comment_new') }}"><i class="fa-duotone fa-comment-plus"></i></a>
+        
+            <h4>{{ comment.getUser().getFirstName() }} {{ comment.getUser().getName() }}, Le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+        
+            <p class="title">{{ comment.title }}</p>
+        
+            <p class="content">{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+
+
+

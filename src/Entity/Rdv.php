@@ -1,32 +1,39 @@
 <?php
-
 namespace App\Entity;
 
-use DateInterval;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RdvRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: RdvRepository::class)]
+
 class Rdv
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?array $status = null;
+    #[ORM\Column(type: "boolean")]
+    private ?bool $status = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dayHour = null;
 
-    #[ORM\Column(type: Types::INTERVAL, nullable: true)]
-    private ?DateInterval $duration = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $heure_debut = null;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $heure_fin = null;
+
+    #[ORM\ManyToOne(inversedBy: 'rdv')]
+    private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $details = null;
+
+
+    // Vos getters et setters restent inchangés
 
     public function getId(): ?int
     {
@@ -38,46 +45,68 @@ class Rdv
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
 
         return $this;
     }
 
-    public function getStatus(): ?array
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(?array $status): static
+    public function setStatus(?bool $status): self
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getHeureDebut(): ?\DateTimeImmutable
+    {
+        return $this->heure_debut;
+    }
+
+    public function setHeureDebut(?\DateTimeImmutable $heure_debut): self
+    {
+        $this->heure_debut = $heure_debut;
+        return $this;
+    }
+
+    public function getHeureFin(): ?\DateTimeImmutable
+    {
+        return $this->heure_fin;
+    }
+
+    public function setHeureFin(?\DateTimeImmutable $heure_fin): self
+    {
+        $this->heure_fin = $heure_fin;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getDayHour(): ?\DateTimeInterface
+    public function getDetails(): ?string
     {
-        return $this->dayHour;
+        return $this->details;
     }
 
-    public function setDayHour(?\DateTimeInterface $dayHour): static
+    public function setDetails(?string $details): static
     {
-        $this->dayHour = $dayHour;
+        $this->details = $details;
 
         return $this;
     }
 
-    public function getDuration(): ?DateInterval
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(?\DateInterval $duration): static
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
 }

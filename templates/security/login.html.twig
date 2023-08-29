@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement{% endblock %}
+
+{% block body %}
+<section>
+    <div class="bgcLogin"></div>
+    <div class="blocPageConnexion">
+        <div class="inscription">
+            <h1>Inscription</h1>
+            <p>Afin de pouvoir accéder à la prise de rendez-vous en ligne veuillez créer un compte.</p>
+            <div class="regButton"><a href="{{path('app_register')}}">S'inscrire</a></div>
+        </div>
+        <form method="post" class="loginForm">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            {% endif %}
+            <h2 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h2>
+            <div class="inputGrp">
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            </div>
+            <div class="inputGrp">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="logButton" type="submit">
+            Se connecter
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}

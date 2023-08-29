@@ -53,11 +53,11 @@ class ServiceRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Service
+//    public function findOneById($id): ?Service
 //    {
 //        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
+//            ->andWhere('s.id = :val')
+//            ->setParameter('val', $id)
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;

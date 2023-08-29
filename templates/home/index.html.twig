@@ -5,6 +5,12 @@
 {% block body %}
 
 <section>
+{% if app.flashes('success') %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-success" style="display:none;">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
     <header class="homepage">
         <div class="overlay1"></div>
         <div class="headerBg">

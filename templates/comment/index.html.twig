@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comment index{% endblock %}
+
+{% block body %}
+<section class="CommentAdminShowContainer">
+    <h1>Liste des commentaires</h1>
+
+    <div class="commentBlock">
+        {% if comments %}
+        {% for comment in comments %}
+        <ul>
+                <li class="commentAuthor">{{ comment.user.getName() }} {{ comment.user.getFirstName() }}, le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</li>
+                <li class="commentTitle">{{ comment.title }}</li>
+                <li class="commentContent">{{ comment.content }}</li>
+                <li>
+                {{ include('comment/_delete_form.html.twig') }}
+                </li>
+        </ul>
+         {% endfor %}
+        {% else %}
+        <ul>
+            <li>no records found</li>
+        </ul>  
+    {% endif %}
+    </div>
+</section>
+{% endblock %}

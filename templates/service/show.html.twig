@@ -14,11 +14,9 @@
             <p>{{ service.description }}</p>    
         </div>
     </div>
+    <div class="commentsContainer">
+        {{ include('comment/show.html.twig') }}
+    </div>
 </section>
 
-    {# <a href="{{ path('app_service_index') }}">back to list</a>
-
-    <a href="{{ path('app_service_edit', {'id': service.id}) }}">edit</a>
-
-    {{ include('service/_delete_form.html.twig') }} #}
 {% endblock %}

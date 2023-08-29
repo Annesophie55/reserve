@@ -1,30 +1,267 @@
-
+{% extends 'base.html.twig' %}
 
 {% block body %}
-<section>
+<style>
+/* CALENDRIER */
+
+.fc-toolbar-title {
+  text-transform: capitalize;
+} 
+.fc {
+  width: 450px;
+  height: 520px;
+  background-color: #fff;
+  border-radius: 10px;  
+  box-shadow: -2px 3px 5px black;
+}
+ .fc-header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+ .fc-toolbar-title {
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+ .fc-button {
+  position: absolute;
+  color: #8f1887;
+  cursor: pointer;
+  scale: 0.5;
+}
+ .fc-button:hover {
+  background-color: #f2f2f2;
+  position: absolute;
+}
+ .fc-day-grid{
+  display: flex;
+  align-items: center;
+  margin: 25px 30px 10px;
+  justify-content: space-between;
+  border: none !important;
+
+}
+ .fc-day {
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 50%;
+}
+/* Supprimer la bordure des cellules de la grille */
+ .fc * {
+  border: none !important;
+  box-shadow: none !important;
+}
+ .fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0em !important;
+}
+ .fc-header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px 7px;
+  justify-content: space-between;
+}
+ .fc-daygrid-day-frame .fc-scrollgrid-sync-inner{
+  height: 50px !important;
+  width: 50px !important;
+}
+
+ .fc-daygrid-day {
+  border: none !important;
+  display: inline-flexbox;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+ .fc-daygrid-day, .fc-daygrid-day-top {
+  border: none !important;
+}
+
+ .fc-daygrid-day-harness {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+ .fc-daygrid-day-bottom {
+  display: none;
+}
+
+ .fc-daygrid-event-harness {
+  margin: 0 !important;
+}
+ .fc-day-today {
+  color: white;
+  background-color: #8f1887;  /* couleur mauve mise à jour */
+}
+
+
+
+ .fc-daygrid-day-top{
+  background-color: #f5b3e8;
+  color: #0b030a;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .fc-daygrid-day-top:hover{
+  background-color: rgb(109, 3, 102);
+  color: aliceblue;
+}
+ .fc-day-selected .fc-daygrid-day-top {
+  background-color: rgb(109, 3, 102);
+  color: aliceblue;
+}
+
+ .fc-daygrid-day-bg{
+  display: none;
+}
+
+ .fc-day .fc-day-thu .fc-day-future .fc-daygrid-day:hover{
+  background-color: transparent !important;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  border-radius: 50%;
+
+}
+ .fc-day .fc-day-sun .fc-day-past .fc-day-other .fc-daygrid-day{
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  border-radius: 50%;
+  background-color: transparent !important;
+}
+/* Supprimer la bordure des événements */
+ .fc-event {
+  border: none !important;
+}
+ .fc-daygrid-day-events{
+  position: absolute !important;
+  
+}
+ .fc-daygrid-day-frame{
+  height: 50px;
+}
+ .fc-day .fc-day-wed .fc-day-past .fc-daygrid-day{
+  height: 50px;
+}
+
+
+
+/* Pour le hover */
+ .fc-daygrid-day:hover .fc-daygrid-day-frame {
+  background-color: transparent !important;
+}
+
+/* Pour le jour actuel */
+ .fc-day-today {
+  background-color: transparent !important;
+}
+ .fc-day-today .fc-daygrid-day-top {
+  background-color: rgb(13, 239, 251);  /* ou la couleur que vous voulez pour 'today' */
+  color: aliceblue;
+}
+
+ .fc-day:hover {
+  background-color: transparent !important;
+}
+
+/* Formulaire de rdv */
+
+ .takeRdv-Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+ .takeRdv-Container h1{
+  font-family: 'Lobster', cursive;
+  letter-spacing: 2px;
+  font-size: 28px;
+  padding: 25px 0;
+}
+ .takeRdvForm{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  font-family: 'Itim';
+  font-size: 18px;
+}
+ .formInput {
+  width: 450px;
+  height: auto;
+  background-color: #fff;
+  border-radius: 10px;  
+  box-shadow: -2px 3px 5px black;
+  padding: 20px;
+}
+ .formInput button{
+  padding: 5px 7px;
+  font-family: 'Itim';
+  font-size: 18px;
+  margin-left: auto;
+  background-color: rgb(25, 168, 225);
+  box-shadow: -2px 3px 5px black;
+  border: none;
+  display: block;
+
+}
+ .inputGroup{
+  padding: 5px 0;
+  width: 100%;
+}
+ .inputGroup label{
+  display: block;
+  padding-bottom: 3px;
+}
+
+</style>
+
     <div class="takeRdv-Container">
+ 
+
         <h1>Prenez rendez-vous avec votre Doula</h1>
-        
-<form action="{{ path('app_rdv_new') }}" method="post">
-    <!-- Mon calendrier personnalisé ici -->
-    {% include "components/_calendar.html.twig" %}
 
-    <label for="hour">Choisissez une heure :</label>
-    <select name="hour" id="hour">
-    <option value="09:00">09:00</option>
-    <option value="10:30">10:30</option>
-    <option value="14:00">14:00</option>
-    <option value="15:30">15:30</option>
-    </select>
+        <form class="takeRdvForm" name="reserve_slot" action="{{ path('reserve_slot') }}" method="post">
 
-    <!-- Champ caché pour la durée, elle sera définie côté serveur -->
-    <input type="hidden" name="duration" value="90">
+                <div id="formCalendar"></div>
+                <input type="hidden" id="selectedDate" name="selectedDate" value="">
 
-    <button type="submit">Enregistrer</button>
-</form>
-        
+
+
+
+            <div class="formInput">
+                <div class="">
+                    <label for="availableSlots">Veuillez sélectionner un horaire.</label>
+                    <select id="availableSlots"></select>
+                    <input type="hidden" name="selectedSlot" id="selectedSlot" value="">
+
+                </div>
+
+                {% if is_granted("ROLE_ADMIN") %}
+                <div class="inputGroup">
+                    <label for="about">Saisissez l'email de la personne avec laquelle vous avez rendez-vous :   </label>
+                    <input type="email" name="email" id="email">
+                </div>
+                {% endif %}
+
+                <div class="inputGroup">
+                    <label for="about">Description du rendez-vous : </label>
+                    <textarea name="details" id="details" cols="30" rows="10"></textarea>
+                </div>
+
+                <button type="submit">Valider</button>  
+            </div>
+        </form>
     </div>
 </section>
+
+
+
 {% endblock %}
-
-

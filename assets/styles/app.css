@@ -1,12 +1,11 @@
+
 /* assets/styles/app.css */
 *, ::before, ::after{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-/* body {
-  background-color: lightgray;
-} */
+
 
 /* HOMEPAGE
 header */
@@ -184,10 +183,16 @@ nav .brand{
   margin: 15px 10px;
   
 }
-nav .user{
-  width: 50px;
+nav .user {
   margin: 10px 15px 5px 15px;
+  display: flex;
 }
+  
+.user a{
+  width: 40px;
+  margin-left: 7px;
+}
+
 .user img{
   width:100%;
 }
@@ -201,23 +206,23 @@ nav .user{
   font-family: 'Itim', cursive;
   font-size: 20px;
   color: darkorchid;
-top: 50%;}
+  top: 50%;
+}
       
 .navListLG li:hover .modal{
-
-          display: block;
-          background-color: #fff;
-        }
+  display: block;
+  background-color: #fff;
+}
 .navListLG li{
   margin-left: 17px;
 }
         
 .navListLG a{
-        text-decoration: none;
-        color:black;
-        font-family: 'Itim';
-        font-size: 20px;
-        }
+  text-decoration: none;
+  color:black;
+  font-family: 'Itim';
+  font-size: 20px;
+}
 
 .navList a{
   text-decoration: none;
@@ -234,10 +239,9 @@ top: 50%;}
   background-color: rgb(10, 0, 0);
   transform: scaleX(0);
   transition: all 0.4s ease-in-out;
-
   }
   
-  .navListLG li a:hover::after{
+.navListLG li a:hover::after{
     content: "";
     display: block;
     transform: scaleX(1);
@@ -326,114 +330,584 @@ top: 50%;}
 
 /* Affichage par service (service/show.html.twig) */
 
-/* CALENDRIER */
-
-.calendarContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+/*Formulaire de connexion*/
+.bgcLogin{
+  background-image: url('../images/vecteezy_lotus-flower-stone-background-illustration-ai-generative_23698733_536\ \(1\).jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  height: 280px;
+  width: 100%;
 }
-.wrapper{
-  width: 450px;
-  background-color: #fff;
-  border-radius: 10px;  
+.blocPageConnexion{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 0px;
+}
+.inscription{
+  height: auto;
+  padding: 10px;
+  margin: 30px 0;
+  border-radius: 15px;
+  font-family: 'Itim';
+}
+.inscription h1{
+  text-align: center;
+  font-family: 'Norican', cursive;
+  font-size: 32px;
+  padding: 17px 0 10px 0;
+  letter-spacing: 2px;
+}
+.blocPageConnexion form{
+  height: auto;
+  width: 40%;
+  padding: 10px;
+  margin: 30px 0;
+  border-radius: 15px;
   box-shadow: -2px 3px 5px black;
 }
-.wrapper header{
+.blocPageConnexion form h2{
+  text-align: center;
+  font-family: 'Norican', cursive;
+  font-size: 32px;
+  padding: 17px 0 10px 0;
+  letter-spacing: 2px;
+}
+.blocPageConnexion form .inputGrp .form-control{
+  margin: 7px 0px;
+  width: 100%;
+}
+.loginForm .inputGrp label{
+  display: block;
+  font-family: 'Itim';
+  font-size: 26px;
+  width: 100%;
+}
+.regButton{
+  box-shadow: -2px 3px 5px black;
+  border-radius: 15px;
+  padding: 3px 2px;
+  color: blueviolet;
+  margin: auto;
   display: flex;
+  width: auto;
+  margin: 22px 0px;
+}
+.regButton a{
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+}
+.logButton{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px 15px;
+  color: blueviolet;
+  margin-left: 75%;
+  font-family: 'Itim';
+}
+
+
+/* RDV DETAILS */
+.rdvDetails{
+  width: 100%;
+  height: 80vh;
+  background-image: url('../images/vecteezy_female-hand-and-flower-in-water_11927403_767.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 25px 30px 10px;
-  justify-content: space-between;
 }
-header .current-date{
-  font-size: 1.45rem;
-  font-weight: 500;
+.rdvBloc{
+  width: 500px;
+  height: auto;
+  background-color: rgb(162, 233, 246);
+  box-shadow: -2px 3px 5px black;
+  border-radius: 15px;
+
 }
-header .icons span{
-  height: 38px;
-  width: 38px;
-  color: #878787;
-  margin: 0 1px;
-  cursor: pointer;
+
+.rdvBloc h1{
   text-align: center;
-  line-height: 38px;
-  border-radius: 50%;
+  width: 100%;
+  font-family: 'Lobster';
+  padding: 10px 0;
+  background-color: #86067b;
+  color: aliceblue;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
-header .icons span:hover{
-  background-color: #f2f2f2;
+
+.rdvBloc .date{
+  font-family: 'Itim';
+  margin: 15px 0 0 10px;
+  font-size: 24px;
 }
-header .icons span:last-child{
-  margin-right: -10px;
+
+.rdvBloc .details{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 15px 0 20px 10px;
+
 }
-.calendar{
-  padding: 20px;
-}
-.calendar ul{
+
+.rdvBloc .blocButton{
   display: flex;
+  justify-content: space-evenly;
+  top: 35px;
+  margin-bottom: 20px;
+
+}
+.rdvBloc .blocButton form .btn{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px 15px;
+  color: rgb(249, 247, 251);
+  background-color: blueviolet;
+  border: none !important;
+
+}
+.blocButton a{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px 15px;
+  color: rgb(249, 247, 251);
+  background-color: blueviolet;
+  text-decoration: none !important;
+}
+
+/* Visualisation des Commentaires coté client */
+.commentsContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.commentCard{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 20px;
+  width: 75%;
+  margin: 12px auto;
+}
+.commentCard a {
+  margin-bottom: 12px;
+}
+.commentCard h4{
+  font-family: 'Lobster';
+  text-align: center;
+  color:blueviolet;
+  font-size: 24px;
+}
+.title{
+  font-family: 'Lobster';
+  text-align: center;
+  font-size: 20px;
+  color: #0b030a !important;
+  margin: 12px 0;
+}
+
+.content{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: left;
+  color: #0b030a !important;
+  font-weight: 100;
+  font-size: 14px;
+  margin: 12px 0;
+
+}
+
+/* affichage des rdvs coté client */
+.rdvsContainer a img{
+  width: 40px;
+}
+
+.btn img{
+  width: 40px;
+  right: 167px;
+position: absolute;
+}
+
+.rdvsContainer{
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Itim';
+
+}
+.rdvsContainer h1{
+  font-family: 'Lobster';
+  text-align: center;
+  font-size: 32px;
+  color: #0b030a !important;
+  margin: 25px 0;
+
+}
+.rdvsContainer a{
+
+  margin: 0px 75px 25px auto;
+
+}
+.rdvsContainer .rdvCard{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 17px;
+  width: 75%;
+  margin: 12px auto;
+}
+
+
+
+.details{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: left;
+  color: #0b030a !important;
+  font-weight: 100;
+  font-size: 14px;
+  margin: 12px 0;
+
+}
+
+/* Espace administrateur */
+.adminContainer{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../images/orchidee.jpg');
+  background-size: cover;
+}
+.adminContainer h1{
+  font-family: 'Norican';
+  margin-top: 25px;
+}
+.adminLinks{
+  display: block;
+  width: 75%;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+.adminLinks li{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 17px;
+  width: 100%;
   list-style-type: none;
-  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.adminLinks li a{
+  text-decoration: none;
+  color: #0b030a;
+  font-family: 'Itim';
+  font-size: 24px;
+}
+
+/* Formulaire d'enregistrement */
+
+.registerContainer{
+  width: 100%;
+  height: auto;
+  background-image: url(../images/orchidee.jpg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 0;
+
+}
+.registerContainer h1{
+  text-align: center;
+  margin: 15px 0;
+  font-family: "Lobster";
+}
+.registerBloc{
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  background-color: transparent;
+  font-family: 'Itim';
+}
+.registerBloc form div:not(:nth-child(6)){
+  display: flex;
+  flex-direction: column;
+} 
+.registerBloc form div:nth-child(6){
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  width: auto;
+}
+
+.registerBloc form div input{
+  margin-top: 5px;
+}
+.registerBloc form button{
+  border: none;
+  background-color: transparent;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  width: 120px;
+  padding: 5px 0;
+  margin: auto;
+}
+.registerBloc form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  width: 495px;
+}
+
+/* Tableau de gestion des prestation proposé */
+.servicesContainer{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Itim';
+  background-image: url(../images/orchidee.jpg);
+  background-size: cover;
+  background-position: top;
+}
+.servicesContainer h1{
+  font-family: 'Norican';
+  letter-spacing: 3px;
+  font-size: 42px;
+}
+.serviceList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+.serviceList ul{
+  padding: 8px;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  width: 80%;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  width: 50%;
+}
+.serviceList ul li{
+
+  padding: 5px;
+  list-style-type: none;
   text-align: center;
 }
-.calendar .days{
+.servicesContainer a img{
+  width: 40px;
+}
+.serviceList ul li a img{
+  width: 40px;
+}
+
+/* Liste des utilisateurs */
+.userListContainer{
+  width: 100%;
+  height: auto;
+}
+.userList{
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.userList ul{
+  padding: 8px;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  width: 400px;
+  list-style-type: none;
+}
+
+/* FOOTER */
+footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: #08f1ed;
+  padding: 7px;
+}
+
+.brandContainer{
+  display: flex;
+}
+footer .brand{
+  width: 50px;
+  margin: 10px 0 5px 15px;
+
+  flex-wrap: nowrap;
+}
+footer .brand img{
+  width:100%;
+}
+footer .brand span{
+  font-family: 'Norican', cursive;
+  font-size: 30px;
+  margin: 15px 10px;  
+}
+footer ul{
+  list-style-type: none;
+}
+footer ul li a{
+  text-decoration: none;
+  font-family: 'Itim';
+  color: #1c1a1a;
+}
+footer ul li{
+  font-family: 'Itim';
+  color: #1c1a1a;
+}
+
+/* Formulaire de suppression */
+.deleteForm .btn{
+  border: none;
+  cursor: none;
+}
+.deleteForm .btn img{
+  cursor: pointer;
+}
+
+/* Formulaire d'ajout de commentaire */
+.commentFormContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+.commentForm{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.commentForm form{
+  width: 320px;
+  padding: 8px;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  margin: 25px;
+
+
+}
+.commentFormContainer h1{
+  font-family: 'Lobster';
+  text-align: center;
+  font-size: 32px;
+  padding: 26px;
+}
+
+.commentForm form input, .commentForm form label{
+  font-family: 'Itim';
+  width: 300px;
+  margin: auto;
+}
+.commentForm form textarea{
+  width: 300px;
+  height: 200px;
+}
+form #comment{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.newCommentBtn{
+  padding: 3px 5px;
+  background-color: #fff;
+  color: #0b030a;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  font-family: 'Itim';
+  font-size: 16px;
+  margin: 10px 5px 10px 77%;
+}
+.rdvDeleteBtn{
+  padding: 3px 5px;
+  background-color: #fff;
+  color: #0b030a;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  font-family: 'Itim';
+  font-size: 16px;
+  margin-left: 60%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  border: none;
+}
+/* Affichages de tous les commentaire coté admin */
+.CommentAdminShowContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.CommentAdminShowContainer h1{
+  text-align: center;
+  font-family: 'Lobster';
+  font-size: 38px;
+  margin: 20px 0;
+}
+.commentBlock{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
 }
-.calendar .weeks li{
-  font-weight: 500;
+.commentBlock ul{
+  padding: 8px;
+  background-color: #ef7de8;
+  color: #0b030a;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  width: 87%;
+  margin-top: 12px; 
+  list-style-type: none; 
 }
-.calendar ul li{
-  position: relative;
-  width: calc(100% / 7);
+.commentAuthor{
+  font-family: 'Norican';
+  font-size: 26px;
 }
-.calendar .days li{
-  z-index: 1;
+.commentTitle{
+  font-family: 'Itim';
+  font-size: 22px;
+  margin-bottom: 7px;
+}
+.commentContent{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.commentDeleteForm button{
+  margin-left: auto;
+  display: block;
+  padding: 4px 7px;
+  color: #0b030a;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  font-family: 'Itim';
+  font-size: 18px;
+  border: none;
   cursor: pointer;
-  margin-top: 30px;
-}
-
-.calendar .days li.inactive{
-  color: #aaa;
-}
-.calendar .days li.active::before{
-  background-color: #9d06a0;
-}
-.calendar .days li.active{
-  color: #FFFF;
-}
-
-
-.calendar .days li::before{
-  position: absolute;
-  content: "";
-  height: 40px;
-  width: 40px;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #FFFF;
-
-}
-
-.days li:hover::before{
-  background-color: #f2f2f2;
-  content: "";
-}
-
-.calendar .days li.selected {
-  color: white;
-}
-
-.calendar .days li.selected::before {
-  position: absolute;
-  content: "";
-  height: 40px;
-  width: 40px;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background-color: blue;
 }

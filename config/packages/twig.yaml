@@ -2,6 +2,8 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals: 
         services: '@App\Repository\ServiceRepository'
+        error: '@App\Controller\SecurityController'
+
 
 when@test:
     twig:

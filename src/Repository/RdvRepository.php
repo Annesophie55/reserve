@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Rdv;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Rdv>
@@ -20,6 +21,31 @@ class RdvRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Rdv::class);
     }
+
+    public function findOverlappingReservations(\DateTimeImmutable $slotStart, \DateTimeImmutable $slotEnd)
+    {
+        return $this->createQueryBuilder('r')
+            ->where(':slotStart < r.heure_fin AND :slotEnd > r.heure_debut')
+            ->setParameters([
+                'slotStart' => $slotStart,
+                'slotEnd' => $slotEnd
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
+    // Dans RdvRepository.php
+public function findUpcomingByUser(User $user)
+{
+    return $this->createQueryBuilder('r')
+        ->where('r.user = :user')
+        ->andWhere('r.date > :now') // Supposons que `date` est le champ pour la date du rdv
+        ->setParameter('user', $user)
+        ->setParameter('now', new \DateTime())
+        ->getQuery()
+        ->getResult();
+}
+
 
 //    /**
 //     * @return Rdv[] Returns an array of Rdv objects
