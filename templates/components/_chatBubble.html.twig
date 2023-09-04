@@ -1,0 +1,28 @@
+
+<div id="chatBubble">
+  <form id="message-form">
+    <div class="form-group">
+      {% if app.user %}
+      <select id="query" name="query" required>
+      <option value="" disabled selected>Sélectionner un utilisateur</option>
+                {% for user in users %}
+      <option value="{{ user.id }}">{{ user.email }}</option>
+                {% endfor %}
+      </select>
+      {% endif %}
+    </div>
+    <input type="text" id="message-content" placeholder="Entrez votre message...">
+    <button id="submit">Envoyer</button>
+  </form>
+  <div class="chatRecipient"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#query').select2({
+        placeholder: "Rechercher un utilisateur",
+        allowClear: true
+    });
+});
+
+</script>

@@ -911,3 +911,35 @@ form #comment{
   border: none;
   cursor: pointer;
 }
+
+/* ChatBulle */
+.chatRecipient{
+  width: 50;
+  height: 50;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+#chatBubble{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 5;
+  transform: translateY(50%);
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: #09d1df;
+  width: 200px;
+  height: 200px;
+  position: fixed;
+}
+#message-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form-group select, .form-group option{
+  width: 150px;
+  
+}

@@ -7,6 +7,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@1,700&family=Itim&family=Lobster&family=Norican&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Open+Sans:wght@300;700&display=swap" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
         <script src="{{ asset('build/app.js') }}"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -19,15 +24,22 @@
         {% if app.flashes %}
             {% include 'components/_flash_messages.html.twig' %}
         {% endif %}
-        
+
         {% include "partials/_header.html.twig" %}
         
-        {% block body %}{% endblock %}
+        {% if app.user %}
+        {% include 'components/_chatBubble.html.twig' with {'users': users} %}
+        {% endif %}
+
+        {% block body %}        
+
+        {% endblock %}
         
         {% include "partials/_footer.html.twig" %}
         
-        {% block javascripts %}
+        {% block javascripts %}np
             {{ encore_entry_script_tags('app') }}
+              {{ encore_entry_script_tags('chat') }}
         {% endblock %}
     </body>
 </html>

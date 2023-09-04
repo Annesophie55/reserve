@@ -216,15 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        
-
-        
-        
-        
-        
-        
-        
-
     });
     adminCalendar.render();
     } else {

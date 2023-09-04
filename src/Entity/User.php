@@ -52,12 +52,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Note::class)]
     private Collection $notes;
 
+    #[ORM\OneToMany(mappedBy: 'sender', targetEntity: Message::class, orphanRemoval: true)]
+    private Collection $sent;
+
+    #[ORM\OneToMany(mappedBy: 'recipient', targetEntity: Message::class, orphanRemoval: true)]
+    private Collection $received;
+
+    #[ORM\ManyToOne(inversedBy: 'client')]
+    private ?Conversation $conversation = null;
+
+    #[ORM\ManyToMany(targetEntity: Conversation::class, mappedBy: 'adminConversation')]
+    private Collection $adminConversation;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->rdv = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->sent = new ArrayCollection();
+        $this->received = new ArrayCollection();
+        $this->adminConversation = new ArrayCollection();
        
     }
 
@@ -94,8 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -264,6 +277,105 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($note->getUser() === $this) {
                 $note->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getSent(): Collection
+    {
+        return $this->sent;
+    }
+
+    public function addSent(Message $sent): static
+    {
+        if (!$this->sent->contains($sent)) {
+            $this->sent->add($sent);
+            $sent->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSent(Message $sent): static
+    {
+        if ($this->sent->removeElement($sent)) {
+            // set the owning side to null (unless already changed)
+            if ($sent->getSender() === $this) {
+                $sent->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getReceived(): Collection
+    {
+        return $this->received;
+    }
+
+    public function addReceived(Message $received): static
+    {
+        if (!$this->received->contains($received)) {
+            $this->received->add($received);
+            $received->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceived(Message $received): static
+    {
+        if ($this->received->removeElement($received)) {
+            // set the owning side to null (unless already changed)
+            if ($received->getRecipient() === $this) {
+                $received->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): static
+    {
+        $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getAdminConversation(): Collection
+    {
+        return $this->adminConversation;
+    }
+
+    public function addAdminConversation(Conversation $adminConversation): static
+    {
+        if (!$this->adminConversation->contains($adminConversation)) {
+            $this->adminConversation->add($adminConversation);
+            $adminConversation->addAdminConversation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdminConversation(Conversation $adminConversation): static
+    {
+        if ($this->adminConversation->removeElement($adminConversation)) {
+            $adminConversation->removeAdminConversation($this);
         }
 
         return $this;

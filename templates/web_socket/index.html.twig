@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WebSocketController!{% endblock %}
+    {% block body %}
+    <style>
+        body {
+            font-family: arial;
+        }
+     
+        .form-group {
+            margin-bottom: 10px;
+        }
+     
+        input {
+            border: solid lightgrey 1px;
+            padding: 8px;
+        }
+     
+        label {
+            display: inline-block;
+            min-width: 150px;
+        }
+     
+        #chat {
+            height: 400px;
+            width: 600px;
+            border: solid lightgrey 1px;
+            overflow: auto;
+            margin-bottom: 20px;
+        }
+     
+        button {
+            padding: 6px 12px;
+        }
+     
+        .message {
+            padding: 10px 5px;
+            margin-bottom: 10px;
+            border-bottom: solid lightgrey 1px;
+        }
+    </style>
+     
+     
+    <div id="chat">
+     
+    </div>
+    <div>
+        <div class="form-group">
+            <label for="name">Nom:</label> <input type="text" id="name">
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label> <input type="text" id="message">
+        </div>
+        <button type="button" id="sendBtn">Envoyer</button>
+    </div>
+
+        <script type="text/javascript">
+        const socket = new WebSocket('ws://localhost:8080');
+     
+        socket.addEventListener("open", function() {
+            console.log("CONNECTED");
+        });
+     
+        function addMessage(name, message) {
+            const messageHTML = "<div class='message'><strong>" + name + ":</strong> " + message + "</div>";
+            document.getElementById("chat").innerHTML += messageHTML
+        }
+     
+        socket.addEventListener("message", function(e) {
+            console.log(e.data);
+            try
+            {
+                const message = JSON.parse(e.data);
+                addMessage(message.name, message.message);
+            }
+            catch(e)
+            {
+                
+            }
+        });
+     
+     
+        document.getElementById("sendBtn").addEventListener("click", function() {
+     
+            const message = {
+                name: document.getElementById("name").value,
+                message: document.getElementById("message").value
+            };
+            socket.send(JSON.stringify(message));
+            console.log("SENDING MESSAGE", message);
+            addMessage(message.name, message.message);
+        });
+    </script>
+    {% endblock %}
