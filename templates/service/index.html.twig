@@ -1,31 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Service index{% endblock %}
+{% block title %}Vos prestations{% endblock %}
 
 {% block body %}
    <div class="servicesContainer">
-        <h1>Vos prestations</h1>
-
+        <h1>Gérer vos prestations</h1>
+            <a href="{{ path('app_service_new') }}"><img src="../images/add.png" alt=""></a>
      <div class="serviceList">
 
          {% for service in services %}
              <ul>
                  <li>{{ service.name }}</li>
-                 <li>{{ service.description }}</li>
-                 <li>{{ service.amount }}</li>
-                 <li>
-                    <a href="{{ path('app_service_edit', {'id': service.id}) }}">Modifier</a>
-                         
-    
-                 </li>
-                 <li>{{ include('service/_delete_form.html.twig') }}</li>
+                 <li>Description de la prestation : </br>{{ service.description }}</li>
+                 <li>Montant de la prestation : {{ service.amount }} €</li>
+                 <div class="grp">
+                    <li><a href="{{ path('app_service_edit', {'id': service.id}) }}">Modifier</a></li>
+                    <li>{{ include('service/_delete_form.html.twig') }}</li>
+                 </div>
              </ul>
          {% else %}
              <div>
                  <span colspan="5">La liste de vos prestations est vide.</span>
              </div>
          {% endfor %}
-    
-         <a href="{{ path('app_service_new') }}"><img src="../images/add.png" alt=""></a>
    </div>
+
 {% endblock %}

@@ -5,19 +5,13 @@
 {% block body %}
 <div class="rdvsContainer">
     <h1>Vos rendez-vous à venir</h1>
-        <a href="{{ path('app_rdv_appointements') }}"><img src="../images/add.png" alt=""></a>
-             {% for rdv in rdvs %}
-        <div class="rdvCard">
-        {{ include('rdv/_delete_form.html.twig') }}
-   
-            <h4>Vous avez rendez-vous le : {{ rdv.heureDebut ? rdv.heureDebut|date('Y-m-d H:i:s') : '' }}</h4>
-            <p  class="details">Details de votre rendez-vous : {{ rdv.details }}</p>
-
-
-
-        
-        </div>
-            {% endfor %}
- 
+    <a href="{{ path('app_rdv_appointements') }}"><i class="fa-solid fa-calendar-plus"></i></a>
+    {% for rdv in rdvs %}
+    <div class="rdvCard">   
+        <h2>Votre rendez-vous du : {{ rdv.heureDebut ? rdv.heureDebut|date('d-m-Y à H:i') : '' }}</h2>
+        <span>Details du rendez-vous : </span><p>{{ rdv.details }}</p>
+            {{ include('rdv/_delete_form.html.twig') }}
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

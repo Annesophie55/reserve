@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Service{% endblock %}
+{% block title %}Modifier une prestation{% endblock %}
 
 {% block body %}
-    <h1>Edit Service</h1>
-
-    {{ include('service/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_service_index') }}">back to list</a>
-
-    {{ include('service/_delete_form.html.twig') }}
+<section class="changeService">
+        <h1>Modifier une prestation</h1>
+    
+        {{ include('service/_form.html.twig', {'button_label': 'Update'}) }}
+    
+        <div class="grp">
+            <a href="{{ path('app_service_index') }}">Retour à la liste de vos prestations</a>
+        </div>
+</section>
 {% endblock %}

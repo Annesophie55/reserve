@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+   <div class="servicesListContainer">
+
+          <h1>Listes de mes prestations</h1>
+
+
+     <div class="serviceListUser">
+
+         {% for service in services %}
+          <div class="cardService aos-comment" data-aos-duration="2000">
+              <h2>{{ service.name }}</h2>
+              <p><em>Description de la prestation :</em> </br>{{ service.description }}</p>
+              <div class="cardGroup">
+                <p>Prix : {{ service.amount }} €</p>
+                <a href='{{ path('app_rdv_appointements') }}'>Réserver</a>
+              </div>
+          </div>
+         {% endfor %}
+      </div>
+   </div>
+{% endblock %}

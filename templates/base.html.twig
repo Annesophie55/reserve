@@ -8,9 +8,14 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@1,700&family=Itim&family=Lobster&family=Norican&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Open+Sans:wght@300;700&display=swap" rel="stylesheet">
 
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
         <script src="{{ asset('build/app.js') }}"></script>
         {% block stylesheets %}
@@ -26,10 +31,6 @@
         {% endif %}
 
         {% include "partials/_header.html.twig" %}
-        
-        {% if app.user %}
-        {% include 'components/_chatBubble.html.twig' with {'users': users} %}
-        {% endif %}
 
         {% block body %}        
 
@@ -37,9 +38,14 @@
         
         {% include "partials/_footer.html.twig" %}
         
-        {% block javascripts %}np
+        {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-              {{ encore_entry_script_tags('chat') }}
+            {{ encore_entry_script_tags('chat') }}
         {% endblock %}
     </body>
 </html>
+
+
+<script>
+  AOS.init();
+</script>

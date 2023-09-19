@@ -3,13 +3,17 @@
 {% block body %}
 <style>
 /* CALENDRIER */
+.takeRdv-Container{
+  background: rgb(64,21,186);
+  background: linear-gradient(98deg, rgba(64,21,186,0.4861403179435837) 13%, rgba(79,0,212,0.3600898977755165) 35%, rgba(190,33,212,0.39370334315366773) 73%, rgba(175,56,237,0.4917425588399422) 94%);
+}
 
 .fc-toolbar-title {
   text-transform: capitalize;
 } 
 .fc {
-  width: 450px;
-  height: 520px;
+  width: 400px;
+  height: auto;
   background-color: #fff;
   border-radius: 10px;  
   box-shadow: -2px 3px 5px black;
@@ -62,8 +66,8 @@
   justify-content: space-between;
 }
  .fc-daygrid-day-frame .fc-scrollgrid-sync-inner{
-  height: 50px !important;
-  width: 50px !important;
+  height: 40px !important;
+  width: 40px !important;
 }
 
  .fc-daygrid-day {
@@ -99,8 +103,8 @@
  .fc-daygrid-day-top{
   background-color: #f5b3e8;
   color: #0b030a;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -142,15 +146,20 @@
 }
  .fc-daygrid-day-events{
   position: absolute !important;
+
   
 }
  .fc-daygrid-day-frame{
-  height: 50px;
+  height: 45px;
+  margin: 2px;
 }
  .fc-day .fc-day-wed .fc-day-past .fc-daygrid-day{
-  height: 50px;
+  height: 45px;
+  margin: 2px;
 }
-
+.fc-h-event .fc-event-title {
+    display: none;
+}
 
 
 /* Pour le hover */
@@ -165,6 +174,10 @@
  .fc-day-today .fc-daygrid-day-top {
   background-color: rgb(13, 239, 251);  /* ou la couleur que vous voulez pour 'today' */
   color: aliceblue;
+
+}
+.fc-scrollgrid-sync-table{
+    margin: 0 0 12px 2px;
 }
 
  .fc-day:hover {
@@ -177,24 +190,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: auto;
 }
  .takeRdv-Container h1{
   font-family: 'Lobster', cursive;
   letter-spacing: 2px;
   font-size: 28px;
   padding: 25px 0;
+  text-align: center;
 }
  .takeRdvForm{
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  height: auto;
   font-family: 'Itim';
   font-size: 18px;
+  margin-bottom: 50px;
 }
  .formInput {
-  width: 450px;
+  width: 400px;
   height: auto;
   background-color: #fff;
   border-radius: 10px;  
@@ -210,6 +226,8 @@
   box-shadow: -2px 3px 5px black;
   border: none;
   display: block;
+  border-radius: 15px;
+  color: #fff
 
 }
  .inputGroup{
@@ -221,6 +239,19 @@
   padding-bottom: 3px;
 }
 
+@media screen and (max-width: 480px) {
+    .fc{
+    width: 330px;
+    height: auto;
+  }
+  .fc-daygrid-day-top{
+    height: 40px !important;
+    width: 40px !important;
+  }
+  .fc-toolbar-title h2{
+    font-size: 18px !important;
+  }}
+
 </style>
 
     <div class="takeRdv-Container">
@@ -230,18 +261,13 @@
 
         <form class="takeRdvForm" name="reserve_slot" action="{{ path('reserve_slot') }}" method="post">
 
-                <div id="formCalendar"></div>
-                <input type="hidden" id="selectedDate" name="selectedDate" value="">
-
-
-
-
+          <div id="formCalendar"></div>
+            <input type="hidden" id="selectedDate" name="selectedDate" value="">
             <div class="formInput">
-                <div class="">
+                <div>
                     <label for="availableSlots">Veuillez sélectionner un horaire.</label>
                     <select id="availableSlots"></select>
                     <input type="hidden" name="selectedSlot" id="selectedSlot" value="">
-
                 </div>
 
                 {% if is_granted("ROLE_ADMIN") %}

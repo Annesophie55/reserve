@@ -1,77 +1,99 @@
 
 
-<script>
+{# <script>
     const servicesJsonUrl = "{{ path('app_services_json') }}";
-</script>
+</script> #}
 
 
 <nav  class="navbar">
+        <div class="navbar-menu">
+        <label for="hamburger" class="menu-btn">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        </label>
+      </div> 
     <div class="brandContainer">
       <div class="brand">
         <img src="../images/flower_2859751.png" alt="">
       </div>
-      <span class="siteName">Mina Louve Doula
-      </span>
+      <span class="siteName">Mina Louve Doula</span>
     </div>
-    <div class="navigation">
+{# Liste de navigation taille large #}
+      <input type="checkbox" id="hamburger">
       <ul class="navListLG">
         <li class="navItem">
           <a href="{{ path('app_home') }}">Accueil
           </a>
         </li>
         <li class="serviceItem" id="serviceItem">
-          <a href="#" >Services</a>
-          <div class="modal">
-            <ul>
-              {% for service in services %}
-                <li>
-                <a href="{{ path('app_service_show', {id:service.id}) }}">{{ service.name }}
-                </a>
-              </li>
-              {% endfor %}
-            </ul>      
-          </div>
+          <a href="{{ path('app_service_index') }}" >Services</a>
         </li>
         <li class="navItem">
-      {% if is_granted("ROLE_ADMIN") %}
-        <a href="{{ path('app_rdv_show') }}">Agenda</a>
-      {% elseif app.user %}
-        <a href="{{ path('app_rdv_appointements') }}">Réservation</a>
+        {% if is_granted("ROLE_ADMIN") %}
+          <a href="{{ path('app_rdv_show') }}">Agenda</a>
+        {% elseif app.user %}
+         <a href="{{ path('app_rdv_appointements') }}">Réservation</a>
       
-      {% else %}
-        <a href="{{ path('app_login') }}">Réservation</a>
-      {% endif %}
-
+        {% else %}
+          <a href="{{ path('app_login') }}">Réservation</a>
+        {% endif %}
         </li>
 
         <li>
         {% if is_granted("ROLE_ADMIN") %}
-      <a href="{{ path('app_admin') }}">Mon espace</a>  
+          <a href="{{ path('app_admin') }}">Mon espace</a>  
         {% elseif app.user and app.user.getRdv()|length > 0 %}
-      <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
-      {% endif %}</li>
-        
-        
+          <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
+        {% endif %}
+        </li>
         <li class="navItem">
-          <a href="">Contact</a>
+          <a href="{{ path('contact')}}">Contact</a>
         </li>
       </ul>
-    </div> 
+      {# Liste de navigation taille mobile #}
+        <ul class="navListSM">
+          <li class="navItem">
+            <a href="{{ path('app_home') }}">Accueil</a>
+          </li>
+          <li class="serviceItem" id="serviceItem">
+            <a href="{{ path('app_service_index') }}" >Services</a>
+          </li>
+          <li class="navItem">
+          {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('app_rdv_show') }}">Agenda</a>
+          {% elseif app.user %}
+            <a href="{{ path('app_rdv_appointements') }}">Réservation</a>
+          {% else %}
+            <a href="{{ path('app_login') }}">Réservation</a>
+          {% endif %}
+          </li>
+
+          <li>
+          {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('app_admin') }}">Mon espace</a>  
+          {% elseif app.user and app.user.getRdv()|length > 0 %}
+            <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
+          {% endif %}
+          </li>
+          <li class="navItem">
+            <a href="{{ path('contact')}}">Contact</a>
+          </li>
+        </ul>
+                {# Menu hamburger #}
+
   <div class="user">
-{% if app.user != is_granted("ROLE_ADMIN") %}    
+    {% if app.user != is_granted("ROLE_ADMIN") %}    
     <a class="addComments" href="{{ path('app_comment_new') }}"><img src="../images/comment.png" alt="Laisser un commentaire"></a>
-{% endif %}
+    {% endif %}
 
-{% if app.user %}
-{# Code à exécuter si un utilisateur est connecté #}
-    <a href="{{ path('app_logout') }}"><img src="../images/userLogout.png" alt="Se déconnecter" ></a>
-{% else %} 
+    {% if app.user %}
+    {# Code à exécuter si un utilisateur est connecté #}
+    <a href="{{ path('app_logout') }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 14.252V22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM19 16.5858L21.1213 14.4645L22.5355 15.8787L20.4142 18L22.5355 20.1213L21.1213 21.5355L19 19.4142L16.8787 21.5355L15.4645 20.1213L17.5858 18L15.4645 15.8787L16.8787 14.4645L19 16.5858Z"></path></svg></a>
+    {% else %} 
     {# Code à exécuter si aucun utilisateur n'est connecté#}
-    <a href="{{ path('app_login') }}"><img src="../images/userLogin.png" alt="Se connecter"></a>
-{% endif %}
-
-
-
-
+    <a href="{{ path('app_login') }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.841 15.659L18.017 15.836L18.1945 15.659C19.0732 14.7803 20.4978 14.7803 21.3765 15.659C22.2552 16.5377 22.2552 17.9623 21.3765 18.841L18.0178 22.1997L14.659 18.841C13.7803 17.9623 13.7803 16.5377 14.659 15.659C15.5377 14.7803 16.9623 14.7803 17.841 15.659ZM12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.6651 7.44784 14.1355 11.7508 14.0038L12 14ZM12 1C15.315 1 18 3.685 18 7C18 10.2397 15.4357 12.8776 12.225 12.9959L12 13C8.685 13 6 10.315 6 7C6 3.76034 8.56434 1.12237 11.775 1.00414L12 1ZM12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3Z"></path></svg></a>
+    {% endif %}
   </div>
+
 </nav>

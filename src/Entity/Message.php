@@ -25,14 +25,17 @@ class Message
 
     #[ORM\ManyToOne(inversedBy: 'sent')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $sender = null;
+    private ?User $sender_id = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $is_read = null;
 
     #[ORM\ManyToOne(inversedBy: 'received')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $recipient = null;
+    private ?User $recipient_id = null;
+
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $title = null;
 
     public function getId(): ?int
     {
@@ -77,12 +80,12 @@ class Message
 
     public function getSender(): ?User
     {
-        return $this->sender;
+        return $this->sender_id;
     }
 
-    public function setSender(?User $sender): static
+    public function setSender(?User $sender_id): static
     {
-        $this->sender = $sender;
+        $this->sender_id = $sender_id;
 
         return $this;
     }
@@ -101,12 +104,24 @@ class Message
 
     public function getRecipient(): ?User
     {
-        return $this->recipient;
+        return $this->recipient_id;
     }
 
-    public function setRecipient(?User $recipient): static
+    public function setRecipient(?User $recipient_id): static
     {
-        $this->recipient = $recipient;
+        $this->recipient_id = $recipient_id;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
 
         return $this;
     }

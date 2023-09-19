@@ -5,6 +5,7 @@ twig:
         error: '@App\Controller\SecurityController'
 
 
+
 when@test:
     twig:
         strict_variables: true

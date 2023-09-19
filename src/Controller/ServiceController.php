@@ -20,10 +20,24 @@ class ServiceController extends AbstractController
     public function index(ServiceRepository $serviceRepository): Response
     {
         $services = $serviceRepository->findAll();
+        $currentUser = $this->getUser();
+        if($currentUser){
+        $currentRole = $currentUser->getRoles();
 
-        return $this->render('service/index.html.twig', [
+        if(in_array("ROLE_ADMIN", $currentRole)){
+            return $this->render('service/index.html.twig', [
+                'services' => $services,
+            ]);  
+        }
+        else{
+        return $this->render('service/list.html.twig', [
             'services' => $services,
-        ]);
+        ]);}
+        }
+        else{
+            return $this->render('service/list.html.twig', [
+                'services' => $services,
+            ]);}
     }
 
     #[Route('/services/json', name: 'app_services_json')]

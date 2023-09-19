@@ -1,19 +1,11 @@
 <footer>
-  <div class="brandContainer">
-    <div class="brand">
-      <img src="../images/flower_2859751.png" alt="">
-    </div>
-    <span class="siteName">Mina Louve Doula
-    </span>
-  </div> 
+
   <ul class="listLinks">
     <li><a href="{{ path('app_home')}}">Accueil</a></li>
-    {% for service in services %}
     <li>
-    <a href="{{ path('app_service_show', {id:service.id}) }}">{{ service.name }}
+    <a href="{{ path('app_service_index') }}">Prestations
     </a>
     </li>
-    {% endfor %}
     <li>
     {% if is_granted("ROLE_ADMIN") %}
     <a href="{{ path('app_rdv_show') }}">Agenda</a>
@@ -25,7 +17,7 @@
     </li>
 
 
-    <li><a href="">Contact</a></li>
+    <li><a href="{{ path('contact')}}">Contact</a></li>
     <li>
       {% if is_granted("ROLE_ADMIN") %}
       <a href="{{ path('app_admin') }}">Mon espace</a>  
@@ -35,13 +27,29 @@
     </li>    
   </ul> 
 
-  <ul class="externalLinks">
-    <li><a href="">Crédits photos</a></li>
+  <ul class="">
+    <li>Crédits photos: <a href="https://fr.vecteezy.com/photos-gratuite">Banque de photos par Vecteezy</a></li>
     <li><a href="">Conditions générales d'utilisation</a></li>
     <li><a href="">Lien vidéo doula</a></li>
+    <li class="userFooter">
+    {% if app.user %}
+    {# Code à exécuter si un utilisateur est connecté #}
+    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    {% else %} 
+    {# Code à exécuter si aucun utilisateur n'est connecté#}
+    <a href="{{ path('app_login') }}">Se connecter</a>
+    {% endif %}
+  </li>
   </ul>
-
+  <div class="brandContainer">
+    <div class="footerBrand">
+      <img src="../images/flower_2859751.png" alt="">
+    </div>
+    <span class="siteName">Mina Louve Doula
+    </span>
+  </div> 
   <ul class="adress">
+  <li>mina.louve@gmail.com</li>
   <li>1 rue des lilas</li>
   <li>11230 Montréal</li>
   </ul>

@@ -1,4 +1,4 @@
-<form class="deleteForm" method="post" action="{{ path('app_rdv_delete', {'id': rdv.id}) }}" onsubmit="return confirm('Etes vous certain(e) de vouloir supprimer ce rendez-vous ?');">
+<form class="rdvDelete" method="post" action="{{ path('app_rdv_delete', {'id': rdv.id}) }}" onsubmit="return confirm('Etes vous certain(e) de vouloir supprimer ce rendez-vous ?');">
     <input class="deleteInput" type="hidden" name="_token" value="{{ csrf_token('delete' ~ rdv.id) }}">
-    <button type="hidden" class="rdvDeleteBtn">>Supprimer le rendez-vous</button>
+    <button type="hidden" class="rdvDeleteBtn">Supprimer le rendez-vous</button>
 </form>

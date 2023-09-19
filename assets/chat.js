@@ -1,4 +1,5 @@
 // chat.js
+console.log('chatjs ok');
 const token = localStorage.getItem('jwt');
 
 const conn = new WebSocket('ws://localhost:8080', [], {
@@ -10,6 +11,7 @@ const conn = new WebSocket('ws://localhost:8080', [], {
 
 conn.onopen = function(e) {
     console.log("Connection established!");
+    conn.send('Hello World!');
 };
 
 conn.onmessage = function(e) {
@@ -42,9 +44,7 @@ document.getElementById("message-form").addEventListener("submit", function(e) {
   e.preventDefault(); // Empêcher la soumission du formulaire
   const messageContent = document.getElementById("message-content").value;
   const recipientId = document.getElementById("query").value; // Supposons que cela contient l'ID du destinataire
-  const senderId = localStorage.getItem('userId');
-
-  
+  const senderId = document.getElementById('senderId').value;
   const messageData = {
     content: messageContent,
     senderId: senderId,
@@ -53,8 +53,8 @@ document.getElementById("message-form").addEventListener("submit", function(e) {
   console.log("Envoi du message :", messageData);
   if (conn.readyState === WebSocket.OPEN) {
     conn.send(JSON.stringify(messageData));
+    console.log('message ok')
   }
   
   console.log("Message envoyé");
 });
-

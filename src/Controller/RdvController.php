@@ -26,6 +26,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // #[Route('/rdv')]
 class RdvController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     #[Route('/appointements', name: 'app_rdv_appointements', methods: ['GET'])]
     public function appointements(Request $request)
@@ -140,20 +146,22 @@ public function reserveSlot(Request $request, EntityManagerInterface $em,UserRep
         $em->flush();
 
         $this->addFlash('success', 'Le rendez-vous a bien était enregistré!');
+        if (in_array("ROLE_ADMIN", $currentRole)){
+            return $this->redirectToRoute('app_rdv_show');
+        }
+        else{
+        return $this->redirectToRoute('confirmation_page');}
     } else {
         $this->addFlash('error', 'Il y a eu un problème lors de l\'enregistrement du rendez-vous');
+        return $this->redirectToRoute('app_rdv_appointements');
     }
-    if (in_array("ROLE_ADMIN", $currentRole)){
-        return $this->redirectToRoute('app_rdv_show');
-    }
-    else{
-    return $this->redirectToRoute('confirmation_page');}
+
 }
 
 #[Route("/confirmation", name:"confirmation_page")]
 public function confirmationPage()
 {
-   return $this->render('home/index.html.twig');
+   return $this->redirectToRoute('app_home');
 }
 
 #[Route("/form-page", name:"form_page")]
@@ -162,14 +170,33 @@ public function formPage()
    return $this->render('rdv/_form.html.twig');
 }
 
+
+public function updateRdvStatus()
+{
+    $now = new \DateTimeImmutable();
+
+    // Utilisez une requête DQL pour trouver les rendez-vous passés et les mettre à jour
+    $query = $this->entityManager->createQuery('
+        UPDATE App\Entity\Rdv r
+        SET r.status = 0
+        WHERE r.heure_debut < :now
+    ');
+
+    $query->setParameter('now', $now);
+    $query->execute();
+}
+
+
 #[Route("/show", name:"app_rdv_show", methods:["GET"])]
-    public function show(RdvRepository $repo): Response
+    public function show( RdvRepository $rdvRepository, UserRepository $userRepository, RdvController $rdvController): Response
     {
-        $rdvs= $repo->findAll();
+        $rdvs = $rdvController->updateRdvStatus();
+
+        $rdvsAVenir = $rdvRepository->findUpcomingByStatus();
 
 
         $eventsData = [];
-        foreach ($rdvs as $rdv) {
+        foreach ($rdvsAVenir as $rdv) {
         $eventsData[] = [
         'title' => $rdv->getUser()->getName(). " " .$rdv->getUser()->getFirstName(),
         'start' => $rdv->getHeureDebut()->format('Y-m-d H:i:s'),
@@ -178,7 +205,7 @@ public function formPage()
         ];
 }
         return $this->render('rdv/show.html.twig',[
-            'eventsJson' => json_encode($eventsData)
+            'eventsJson' => json_encode($eventsData),
         ]);
     }
 
@@ -197,7 +224,7 @@ public function formPage()
 public function myAppointments(RdvRepository $repo): Response
 {
     $user = $this->getUser();
-    $rdvs = $repo->findByUser($user);
+    $rdvs = $repo->findUpcomingByUser($user);
 
     return $this->render('rdv/index.html.twig', [
         'rdvs' => $rdvs

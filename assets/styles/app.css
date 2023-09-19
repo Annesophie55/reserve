@@ -24,18 +24,16 @@ header.homepage{
 .overlay1{
   position: absolute;
   width: 100%;
-  height: 102%;
+  height: 100vh;
   background: rgba(0,0,0,0.4);
   z-index: 2;
 }
 header h1{
   font-size: clamp(40px, 5vw, 80px);
   width: 80%;
-  color: blue;
-  -webkit-text-stroke: 0.2px;
-  -webkit-text-stroke-color: #0b030a;
+  color: rgb(251, 249, 250);
   margin: 250px 0 400px 0;
-  font-family: 'Lobster', cursive;
+  font-family: 'Norican';
   letter-spacing: 5px;
   position: absolute;
   text-align: center;
@@ -47,14 +45,14 @@ header h1{
 /* Profile admin */
 .adminProfil{
   width: 100%;
-  margin: 80px 25px;
+  margin: 80px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 .adminPhoto{
-  width: 40%;
+  width: 300px;
 }
 .adminPhoto img{
   width: 100%;
@@ -98,7 +96,10 @@ Services details */
 .details p{
   font-family: 'Itim', cursive;
   text-align: center;
+  margin: 25px;
 }
+
+/* Affichage des commentaires sur la home page */
 .containerCard{
   display: flex;
   justify-content: space-evenly;
@@ -108,57 +109,106 @@ Services details */
   flex-basis: 100%;
   flex-grow: 1;
 }
-.cardService{
+.cardComment{
   color: aliceblue;
-  width: 350px;
-  background-color: #FF005A;
+  width: 320px;
+  height: 290px;
+  background: rgb(64,21,186);
+  background: linear-gradient(186deg, rgba(64,21,186,1) 13%, rgba(79,0,212,1) 35%, rgba(190,33,212,1) 73%, rgba(175,56,237,1) 94%);
+  box-shadow: -2px 3px 5px black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 50px;
   padding: 15px;
   margin-top: 20px;
 }
-.cardService img{
-  width: 120px;
-
-}
-.cardService h3{
+.cardComment h3{
   font-family: 'Lobster', cursive;
-  padding: 10px 0;  
+  padding: 7px 0;  
+}
+.cardComment p{
+  text-align: center;
+  color: aliceblue;
+  padding: 7px;
+  font-family: 'Itim';
+}
+/* Affichage des commentaires sur la home page */
+
+/* Carte services */
+.servicesListContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  flex-grow: 1;
+  background-image: url('../images/orchidee.jpg');
+  background-size: cover;
+}
+.servicesListContainer h1{
+  font-family: 'Lobster';
+  font-size: 54px;
+  color: #86067b;
+  margin: 60px 0;
+  text-align: center;
+}
+.cardService{
+  color: #86067b;
+  width: 600px;
+  height: auto;
+  box-shadow: -2px 3px 5px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  padding: 15px;
+  margin: 20px auto;
+  background-color: rgba(14, 228, 243, 0.6); /* Rouge avec 50% d'opacité */
+  ;
+}
+.cardService h2{
+  font-family: 'Lobster', cursive;
+  padding: 7px 0;  
+
 }
 .cardService p{
   text-align: justify;
-  color: aliceblue;
+  color: rgb(15, 2, 17);
+  padding: 7px;
+  font-family: 'Itim';
+  font-size: 18px;
 }
-/*Services details*/
-/* Carte services */
-
-
-
-@media screen and (max-device-width: 833px) {
-  .adminProfil{
-    flex-direction: column;
-  }
-  .adminPhoto{
-    width: 60%;
-  }
-  .adminAbout{
-    width: 90%;
-    margin: 25px 0;
-    
-  }
-  
+.cardGroup{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
+.cardGroup a{
+  text-align: center;
+  color: rgb(15, 2, 17);
+  padding: 5px;
+  font-family: 'Itim';
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: -2px 3px 5px black;
+  background-color: #fff;
+}
+
+
 
 /* HEADER */
 nav{
+  position: relative;
   width: 100%;
   display: flex;
   height: max-content;
-  background-color: white;
-  border-bottom: #FF005A solid 2px;
+  background: rgb(153,17,225);
+  background: linear-gradient(135deg, rgba(153,17,225,1) 23%, rgba(172,87,236,1) 49%, rgba(161,17,182,1) 71%);
 }
 .navbar{
   display: flex;
@@ -171,7 +221,6 @@ nav{
 nav .brand{
   width: 50px;
   margin: 10px 0 5px 15px;
-
   flex-wrap: nowrap;
 }
 .brand img{
@@ -181,10 +230,11 @@ nav .brand{
   font-family: 'Norican', cursive;
   font-size: 30px;
   margin: 15px 10px;
+  color: rgb(14, 242, 246);
   
 }
 nav .user {
-  margin: 10px 15px 5px 15px;
+  margin: 10px;
   display: flex;
 }
   
@@ -197,16 +247,14 @@ nav .user {
   width:100%;
 }
 
-.navigation{
-  margin: auto;
-}
+
 .navListLG{
   display: inline-flex;
   list-style-type: none;
   font-family: 'Itim', cursive;
   font-size: 20px;
-  color: darkorchid;
-  top: 50%;
+  margin: auto;
+  position: relative;
 }
       
 .navListLG li:hover .modal{
@@ -215,11 +263,12 @@ nav .user {
 }
 .navListLG li{
   margin-left: 17px;
+  position: relative;
 }
         
 .navListLG a{
   text-decoration: none;
-  color:black;
+  color:rgb(250, 241, 241);
   font-family: 'Itim';
   font-size: 20px;
 }
@@ -247,6 +296,57 @@ nav .user {
     transform: scaleX(1);
   
   }
+/* Navigation sur mobile */
+.navListSM{
+  display: none;
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  background: rgb(153,17,225);
+  background: linear-gradient(135deg, rgba(153,17,225,1) 23%, rgba(172,87,236,1) 49%, rgba(161,17,182,1) 71%);
+  z-index: 7;
+
+}
+
+.navListSM li{
+  list-style-type: none;
+  margin: auto;
+  font-family: 'Itim';
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+}
+.navListSM li a{
+  text-decoration: none;
+  font-family: 'Itim';
+  font-size: 24px;
+  color: #fff;
+}
+
+
+/* menu hamburger */
+.navbar-menu{
+  justify-content: center;
+  align-items: center;
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 10px;
+}
+.menu-line{
+  width: 33px;
+  height: 3px;
+  background-color: #0b0101;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin-top: 5px;
+}
+#hamburger{
+  display: none;
+}
+
+
 
 
 /* modal */
@@ -331,19 +431,13 @@ nav .user {
 /* Affichage par service (service/show.html.twig) */
 
 /*Formulaire de connexion*/
-.bgcLogin{
-  background-image: url('../images/vecteezy_lotus-flower-stone-background-illustration-ai-generative_23698733_536\ \(1\).jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: scroll;
-  height: 280px;
-  width: 100%;
-}
 .blocPageConnexion{
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 40px 0px;
+  background-image: url(../images/orchidee.jpg);
+  background-size: cover;
 }
 .inscription{
   height: auto;
@@ -351,6 +445,10 @@ nav .user {
   margin: 30px 0;
   border-radius: 15px;
   font-family: 'Itim';
+  width: 50%;
+  box-shadow: -2px 3px 5px black;
+  background-color: #ffffff79;
+
 }
 .inscription h1{
   text-align: center;
@@ -359,6 +457,10 @@ nav .user {
   padding: 17px 0 10px 0;
   letter-spacing: 2px;
 }
+.inscription p{
+  text-align: left;
+  font-size: 18px;
+}
 .blocPageConnexion form{
   height: auto;
   width: 40%;
@@ -366,6 +468,7 @@ nav .user {
   margin: 30px 0;
   border-radius: 15px;
   box-shadow: -2px 3px 5px black;
+  background-color: #ffffff79;
 }
 .blocPageConnexion form h2{
   text-align: center;
@@ -378,6 +481,11 @@ nav .user {
   margin: 7px 0px;
   width: 100%;
 }
+.loginForm{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
 .loginForm .inputGrp label{
   display: block;
   font-family: 'Itim';
@@ -387,25 +495,26 @@ nav .user {
 .regButton{
   box-shadow: -2px 3px 5px black;
   border-radius: 15px;
-  padding: 3px 2px;
-  color: blueviolet;
-  margin: auto;
-  display: flex;
-  width: auto;
-  margin: 22px 0px;
+  padding: 3px 5px;
+  margin: 22px auto;
+  width: fit-content;
 }
 .regButton a{
   text-align: center;
-  width: 100%;
   text-decoration: none;
+  color: rgb(9, 1, 19);
 }
 .logButton{
-  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  display: block;
+  width: fit-content;
+  box-shadow: -2px 3px 5px black;
   border-radius: 15px;
-  padding: 5px 15px;
-  color: blueviolet;
-  margin-left: 75%;
+  padding: 3px 5px;
+  margin: auto;
   font-family: 'Itim';
+  font-size: 16px;
+  background-color: #ffffff79;
+  border: none;
 }
 
 
@@ -459,6 +568,21 @@ nav .user {
   margin-bottom: 20px;
 
 }
+.rdvBloc .grp{
+  display: flex;
+  justify-content: space-around;
+}
+.rdvBloc .grp a{
+  background-color: #fff;
+  font-size: 16px;
+  font-family: 'Itim';
+  color: #0b0101;
+  text-decoration: none;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px;
+  margin-bottom: 8px;
+}
 .rdvBloc .blocButton form .btn{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
@@ -467,6 +591,10 @@ nav .user {
   background-color: blueviolet;
   border: none !important;
 
+}
+.rdvBloc .deleteForm .rdvDeleteBtn{
+  margin-bottom: 8px; 
+  font-size: 16px;
 }
 .blocButton a{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
@@ -526,50 +654,75 @@ nav .user {
 
 .btn img{
   width: 40px;
-  right: 167px;
-position: absolute;
 }
 
 .rdvsContainer{
   width: 100%;
-  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-family: 'Itim';
+  background-image: url('../images/bgcFox.jpg');
+  background-size: cover;
 
 }
 .rdvsContainer h1{
   font-family: 'Lobster';
   text-align: center;
-  font-size: 32px;
+  font-size: 48px;
   color: #0b030a !important;
-  margin: 25px 0;
+  margin: 50px 0 25px 0;
 
 }
 .rdvsContainer a{
 
-  margin: 0px 75px 25px auto;
+  margin: auto;
 
 }
 .rdvsContainer .rdvCard{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
   padding: 17px;
-  width: 75%;
+  width: 60%;
   margin: 12px auto;
+  background-color: rgb(85, 3, 94, 0.3);
+}
+.rdvCard h2{
+  text-align: center;
+  font-family:'Itim';
+  color: #090101;
+  width: 100%;
 }
 
 
-
-.details{
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.rdvCard p{
+  font-family:'Itim';
   text-align: left;
-  color: #0b030a !important;
+  color: #160202;
   font-weight: 100;
   font-size: 14px;
   margin: 12px 0;
+}
 
+.rdvCard span{
+  font-weight: 400;
+  color: #140202;
+  margin-top: 15px;
+  display: block;
+  font-family:'Itim';
+}
+.rdvDeleteBtn{
+  display: block;
+  padding: 3px 5px;
+  background-color: #f79c0a;
+  color: #f4ebf2;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  font-family: 'Itim';
+  font-size: 16px;
+  margin: auto;
+  cursor: pointer;
+  border: none;
 }
 
 /* Espace administrateur */
@@ -596,6 +749,7 @@ position: absolute;
 }
 .adminLinks li{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  background-color: #ffffffaa;
   border-radius: 15px;
   padding: 17px;
   width: 100%;
@@ -628,47 +782,41 @@ position: absolute;
   margin: 15px 0;
   font-family: "Lobster";
 }
-.registerBloc{
+.registerContainer form{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
-  width: 500px;
+  width: 50%;
   display: flex;
   justify-content: center;
   margin: auto;
   background-color: transparent;
   font-family: 'Itim';
+  flex-direction: column;
+  padding: 15px;
 }
-.registerBloc form div:not(:nth-child(6)){
+.registerContainer form div:not(:nth-child(6)){
   display: flex;
   flex-direction: column;
 } 
-.registerBloc form div:nth-child(6){
+.registerContainer form div:nth-child(6){
   display: flex;
   flex-direction: row-reverse;
   justify-content: start;
   width: auto;
 }
 
-.registerBloc form div input{
+.registerContainer form div input{
   margin-top: 5px;
 }
-.registerBloc form button{
+.registerContainer form button{
   border: none;
-  background-color: transparent;
-  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  background-color: #3bf6e7;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94, 0.2);
   border-radius: 15px;
   width: 120px;
   padding: 5px 0;
   margin: auto;
 }
-.registerBloc form{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 15px;
-  width: 495px;
-}
-
 /* Tableau de gestion des prestation proposé */
 .servicesContainer{
   position: relative;
@@ -686,45 +834,78 @@ position: absolute;
   font-family: 'Norican';
   letter-spacing: 3px;
   font-size: 42px;
+  margin: 35px 0;
 }
 .serviceList{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  flex-basis: 100%;
+  flex-grow: 1;
 }
 .serviceList ul{
   padding: 8px;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
-  width: 80%;
-  background-color: bisque;
+  background-color: rgb(248, 243, 237, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 4px;
-  width: 50%;
+  margin: 5px 10px;
+  width: 30%;
+
+  
 }
 .serviceList ul li{
-
   padding: 5px;
   list-style-type: none;
   text-align: center;
 }
+.serviceList ul li:first-child{
+  font-family: 'Lobster';
+  font-size: 24px;
+  text-align: center;
+} 
 .servicesContainer a img{
   width: 40px;
 }
 .serviceList ul li a img{
   width: 40px;
 }
+.serviceList ul .grp{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+}
+.serviceList ul .grp li a, .serviceDeleteBtn{
+  font-family: 'Itim';
+  border: 1px solid black;
+  text-decoration: none;
+  padding: 0 3px;
+  background-color: #fff;
+  color: #0b0101;
+  font-size: 18px;
+  border-radius: 5px;
+}
 
 /* Liste des utilisateurs */
 .userListContainer{
   width: 100%;
-  height: auto;
+  min-height: 80vh;
+  background-image: url('../images/champ.jpg');
+  background-size: cover;
+}
+.userListContainer h1{
+  font-family: 'Lobster';
+  font-size: 50px;
+  width: 100%;
+  text-align: center;
+  padding: 45px 0;
 }
 .userList{
   width: 100%;
@@ -732,14 +913,136 @@ position: absolute;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  padding: 35px 0;
 }
+/* carte utilisateur */
 .userList ul{
   padding: 8px;
+  margin: 7px;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
-  width: 400px;
+  width: 30%;
+  list-style-type: none;
+  background-color: rgba(251, 250, 250, 0.761);
+  color: #0e0d0d;
+  font-family: 'Itim';
+  font-size: 18px;
+}
+.userList ul li:last-of-type a{
+  color: #030404;
+}
+/* recherche par tri des clients */
+.searchUserInput{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.7px solid rgba(168, 160, 160, 0.468);
+  border-radius: 5px;
+  padding: 3px;
+  margin-left: auto;
+  margin-right: 4%;
+  width: fit-content;
+  font-family: 'Itim';
+  background-color: rgba(251, 250, 250, 0.761);
+}
+.searchUserInput button{
+  margin-left: 7px;
+  border: 0.7px solid rgba(168, 160, 160, 0.468);
+  border-radius: 5px;
+  padding: 3px;
+  font-family: 'Itim';
+}
+.searchUserInput input{
+  border: 0.7px solid rgba(168, 160, 160, 0.468);
+  border-radius: 5px;
+  padding: 3px;
+}
+
+/* Liste des utilisateurs */
+/* Fiche client */
+.userDetailContainer{
+  width: 100%;
+  height: auto;
+  background-image: url('../images/champ.jpg');
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+.userInfo{
+  width: 75%;
+  min-height: 70vh;
+  background-color: rgb(255, 255, 255, 0.7);
+  margin: 25px 0;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.userInfo h1{
+  width: 100%;
+  text-align: center;
+  font-family: 'Lobster';
+  margin: 50px 0;
+}
+.userInfo .info{
+  padding: 7px;
+  border: 0.5px solid rgba(88, 78, 78, 0.577);
+  width: fit-content;
+  margin: 55px 40px 10px auto;
+}
+.userInfo ul:first-of-type li{
+  font-family: 'Itim';
   list-style-type: none;
 }
+.userInfo form:first-of-type{
+  width: 75%;
+  margin: 35px auto 18px 20px;
+  font-family: 'Itim';
+}
+.userDelete button img{
+  box-shadow: none;
+  border: none !important;
+}
+button, a{
+  cursor: pointer;
+}
+.userInfo form:last-of-type label{
+  margin-bottom: 7px;
+}
+.userInfo form:last-of-type textarea{
+  padding: 3px;
+  font-size: 15px;
+}
+.userInfo form:last-of-type button{
+  width: fit-content;
+  padding: 3px;
+  border: none;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  margin: 7px 7px 20px auto;
+  font-family: 'Itim';
+  background-color: transparent;
+  font-size: 16px;
+}
+
+#note div{
+  display: flex;
+  flex-direction: column;
+}
+/* .userHeader{
+  display: flex;
+  justify-content: space-evenly;
+} */
+
+/* Affichage des notes */
+.noteContainer ul{
+  border: 1px solid rgba(182, 172, 172, 0.558);
+  font-family: 'Itim';
+  list-style-type: none;
+  width: 100%;
+  padding: 7px;
+}
+/* Fiche client */
 
 /* FOOTER */
 footer{
@@ -748,38 +1051,46 @@ footer{
   align-items: center;
   width: 100%;
   height: auto;
-  background-color: #08f1ed;
+  background: rgb(99,66,193);
+  background: linear-gradient(186deg, rgba(99,66,193,1) 13%, rgba(146,30,208,1) 35%, rgba(11,21,161,1) 73%, rgba(87,170,234,1) 94%);
   padding: 7px;
 }
-
+.userFooter{
+  margin: 0;
+}
 .brandContainer{
   display: flex;
 }
-footer .brand{
+.footerBrand{
   width: 50px;
   margin: 10px 0 5px 15px;
-
   flex-wrap: nowrap;
 }
-footer .brand img{
+.footerBrand img{
   width:100%;
 }
-footer .brand span{
+.brandContainer span{
   font-family: 'Norican', cursive;
   font-size: 30px;
   margin: 15px 10px;  
+  color: #0b0101;
 }
 footer ul{
   list-style-type: none;
 }
+.listLinks{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 footer ul li a{
   text-decoration: none;
   font-family: 'Itim';
-  color: #1c1a1a;
+  color: #fff;
 }
 footer ul li{
   font-family: 'Itim';
-  color: #1c1a1a;
+  color: #fff;
 }
 
 /* Formulaire de suppression */
@@ -798,11 +1109,16 @@ footer ul li{
   justify-content: center;
   flex-direction: column;
   height: auto;
+  background-image: url('../images/sweetBaby.jpg');
+  background-size: cover;
+  background-position: right;
+
 }
 .commentForm{
   width: 100%;
   display: flex;
   justify-content: center;
+
 }
 .commentForm form{
   width: 320px;
@@ -810,11 +1126,11 @@ footer ul li{
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
   margin: 25px;
-
-
 }
 .commentFormContainer h1{
   font-family: 'Lobster';
+  color: #f4d9f2;
+  background-color: #870a7a52;
   text-align: center;
   font-size: 32px;
   padding: 26px;
@@ -824,10 +1140,23 @@ footer ul li{
   font-family: 'Itim';
   width: 300px;
   margin: auto;
+  border: none;
+  color: #f7f0f6;
+  font-size: 18px;
+}
+.commentForm form input{
+  background-color: #ffffff5f;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 5px;
 }
 .commentForm form textarea{
   width: 300px;
   height: 200px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffffff5f;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  color: #09d1df;
 }
 form #comment{
   display: flex;
@@ -836,32 +1165,22 @@ form #comment{
 }
 .newCommentBtn{
   padding: 3px 5px;
-  background-color: #fff;
-  color: #0b030a;
+  background-color: #32f5be5c;
+  color: #f6f2f5;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
   font-family: 'Itim';
   font-size: 16px;
   margin: 10px 5px 10px 77%;
-}
-.rdvDeleteBtn{
-  padding: 3px 5px;
-  background-color: #fff;
-  color: #0b030a;
-  box-shadow: -1px 1px 2px rgb(85, 3, 94);
-  border-radius: 15px;
-  font-family: 'Itim';
-  font-size: 16px;
-  margin-left: 60%;
-  margin-bottom: 15px;
-  cursor: pointer;
   border: none;
 }
+
 /* Affichages de tous les commentaire coté admin */
 .CommentAdminShowContainer{
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 .CommentAdminShowContainer h1{
@@ -870,26 +1189,21 @@ form #comment{
   font-size: 38px;
   margin: 20px 0;
 }
-.commentBlock{
-  width: 100%;
+.commentsBloc{
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  width: 100%;
 }
-.commentBlock ul{
-  padding: 8px;
-  background-color: #ef7de8;
-  color: #0b030a;
-  box-shadow: -1px 1px 2px rgb(85, 3, 94);
-  border-radius: 15px;
-  width: 87%;
-  margin-top: 12px; 
-  list-style-type: none; 
+.commentsBloc .cardComment{
+  margin: 8px;
 }
 .commentAuthor{
   font-family: 'Norican';
   font-size: 26px;
+  text-align: center;
 }
 .commentTitle{
   font-family: 'Itim';
@@ -897,10 +1211,10 @@ form #comment{
   margin-bottom: 7px;
 }
 .commentContent{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Itim';
 }
 .commentDeleteForm button{
-  margin-left: auto;
+  margin: auto;
   display: block;
   padding: 4px 7px;
   color: #0b030a;
@@ -941,5 +1255,273 @@ form #comment{
 }
 .form-group select, .form-group option{
   width: 150px;
-  
+}
+
+/* Page pour ajouter un service (admin) */
+.newService{
+  background: rgb(64,21,186);
+  background: linear-gradient(98deg, rgba(64,21,186,0.4861403179435837) 13%, rgba(79,0,212,0.3600898977755165) 35%, rgba(190,33,212,0.39370334315366773) 73%, rgba(175,56,237,0.4917425588399422) 94%);
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.newService form{
+  width: 40%;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 15px;
+}
+.newService form div{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 5px auto;
+  font-family: 'Itim';
+}
+.newService form .btn{
+  margin-left: 40%;
+  font-family: 'Itim';
+  width: auto;
+  font-size: 16px;
+  padding: 0 3px;
+}
+.newService a{
+  font-family: 'Itim';
+  text-decoration: none;
+  color: #210202;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px;
+
+}
+/* Page pour ajouter un service (admin) */
+/* Page pour modifier un service (admin) */
+.changeService{
+  background-image: url('../images/ponton.jpg');
+  background-size: cover;
+  background-position: bottom;
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.changeService h1{
+  font-family: 'Lobster';
+  font-size: 33px;
+}
+.changeService form{
+  width: 40%;
+  box-shadow: -1px 1px rgb(16, 6, 17);
+  border-radius: 15px;
+  padding: 15px;
+  background-color: transparent;
+}
+.changeService form div{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 5px auto;
+  font-family: 'Itim';
+}
+.changeService form .btn{
+  margin-left: 40%;
+  font-family: 'Itim';
+  width: auto;
+  font-size: 16px;
+  padding: 0 3px;
+  background-color: transparent;
+  border-radius: 5px;
+  color: #fff;
+}
+.changeService a{
+  font-family: 'Itim';
+  text-decoration: none;
+  color: #fff;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  border-radius: 15px;
+  padding: 5px;
+
+}
+/* Page pour modifier un service (admin) */
+/* Page formulaire de contact */
+.contactForm{
+  background-image: url(../images/ponton.jpg);
+  background-size: cover;
+  background-position: bottom;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.contactForm h1{
+  font-family: 'Lobster';
+  font-size: 44px;
+  padding: 25px 0;
+  text-align: center;
+}
+.contactForm form{
+  width: fit-content;
+  padding: 10px 20px;
+  background-color: #ffffff78;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  font-family: 'Itim';
+}
+.contactForm form div{
+  display: flex;
+  flex-direction: column;
+  margin-top: 7px;
+}
+.contactForm form div input, .contactForm form div textarea{
+  background-color: #ffffff78;
+  border-radius: 15px;  
+  padding: 3px;
+  border: none;
+  margin-top: 5px;
+}
+.sendBtn{
+  background-color: #4ef2d978;
+  border-radius: 15px;  
+  padding: 5px;
+  border: none;
+  margin-top: 7px;
+  font-family: 'Itim';
+  display: flex;
+  margin-left: auto;
+  box-shadow: -1px 1px 2px rgb(85, 3, 94);
+  font-size: 16px;
+}
+/* Page formulaire de contact */
+
+@media screen and (max-width: 935px) {
+  /* nav{
+    flex-direction: row-reverse;
+  } */
+  .navListLG{
+    display: none;
+  }
+  #hamburger:checked ~.navListSM {
+    display: block;
+  }
+  .navbar-menu{
+    display: flex;
+    cursor: pointer;
+  }
+
+  .menu-btn{
+    cursor: pointer;
+  }
+  .takeRdvForm{
+    flex-direction: column;
+  }
+  .formInput{
+    margin-top: 10px;
+  }
+  .userList ul{
+    width: 45%;
+  }
+}
+@media screen and (max-device-width: 833px) {
+  .adminProfil{
+    flex-direction: column;
+  }
+  .adminPhoto{
+    width: 60%;
+  }
+  .adminAbout{
+    width: 90%;
+    margin: 25px 0;
+    
+  }
+  footer .brandContainer{
+    display: none;
+  }
+  .registerContainer form{
+    width: 80% !important;
+  }
+  .contactForm h1{
+  font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 720px){
+  .servicesListContainer h1{
+    font-size: 38px;
+  }
+  .cardService{
+    width: 350px;
+    height: auto;
+  }
+  .blocPageConnexion{
+    flex-direction: column-reverse;
+  }
+  .inscription, .blocPageConnexion form{
+    width: 80%;
+  }
+  .serviceList ul{
+    width: 85%;
+  }
+  .changeService form{
+    width: 80%;
+  }
+  .userListContainer h1{
+    font-size: 32px;
+  }
+
+  .userList ul{
+    width: 80%;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+
+  nav .brand{
+    width: 40px;
+    margin: 10px 0 5px 15px;
+    flex-wrap: nowrap;
+  }
+  .brand img{
+    width:100%;
+  }
+  .siteName{
+    font-family: 'Norican', cursive;
+    font-size: 27px;
+    margin: 15px 10px;
+    color: rgb(14, 242, 246);
+    
+  }
+  .navbar-menu{
+    width: 30px;
+  }
+  .menu-line{
+    width: 25px;
+    height: 2px;
+  }
+  .user a{
+    width: 30px;
+  }
+
+}
+@media screen and (max-width: 380px){
+  .brandContainer{
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .brand{
+    display: none;
+  }
+  .siteName{
+    text-align: center;
+    margin: 0;
+  }
+  .cardService{
+    width: 280px;
+  }
 }

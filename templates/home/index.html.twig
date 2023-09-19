@@ -4,6 +4,10 @@
 
 {% block body %}
 
+    {# {% if app.user %}
+    {% include 'components/_chatBubble.html.twig' with {'users': users} %}
+    {% endif %} #}
+
 <section>
 {% if app.flashes('success') %}
     {% for message in app.flashes('success') %}
@@ -15,7 +19,7 @@
         <div class="overlay1"></div>
         <div class="headerBg">
         </div>
-        <h1>Lorem ipsum dolor</h1>
+        <h1>Mina Louve votre Doulà</h1>
     </header>
     <div class="adminProfil">
         <div class="adminPhoto">
@@ -32,26 +36,10 @@
     </div>
     <div class="benefits">
         <div class="details">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum, assumenda. Tenetur necessitatibus cumque error mollitia molestias facere perspiciatis neque adipisci quia exercitationem voluptas quibusdam vitae labore amet unde, quae illo vel repudiandae culpa atque voluptatem earum tempora eum! Molestias, optio recusandae magni accusamus, quaerat ut eius velit voluptatum officia similique beatae nulla? Voluptate nostrum officia perferendis quod error quasi odit voluptatum deleniti! Illum animi ab deserunt quis obcaecati. Porro labore corrupti a mollitia ipsa voluptates laudantium assumenda molestias eum consectetur culpa pariatur quo, similique autem eligendi qui suscipit dolores quasi praesentium adipisci! Quis illo architecto debitis dolore veniam assumenda fuga distinctio sint! Tempore alias id debitis velit labore voluptatum sapiente fugit quos error cum. Nemo quibusdam doloribus distinctio omnis libero! Iste quisquam reprehenderit similique sed iusto! Perspiciatis quia doloribus quis aspernatur deleniti aperiam sapiente, modi explicabo omnis sint officia tempore beatae, quibusdam similique quaerat at doloremque numquam. Qui, nobis adipisci?</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum, assumenda. Tenetur necessitatibus cumque error mollitia molestias facere perspiciatis neque adipisci quia exercitationem voluptas quibusdam vitae labore amet unde, quae illo vel repudiandae culpa atque voluptatem earum tempora eum! Molestias, optio recusandae magni accusamus, quaerat ut eius velit voluptatum officia similique beatae nulla?</p>
         </div>
-        <div class="containerCard">
-            <div class="cardService">
-                {# <a href="https://fr.freepik.com/search?format=search&last_filter=query&last_value=therapy&query=therapy&type=icon">Icône de Nueng_wana</a> #}
-                <img src="{{ asset('images/brain_7404610.png') }}"alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti laborum amet quidem inventore perspiciatis ullam temporibus non enim quaerat molestias, quae exercitationem impedit dolore ad hic ea earum voluptatem distinctio.</p>
-            </div>
-            <div class="cardService">
-                 <img src="{{ asset('images/brain_7404610.png') }}"alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti laborum amet quidem inventore perspiciatis ullam temporibus non enim quaerat molestias, quae exercitationem impedit dolore ad hic ea earum voluptatem distinctio.</p>
-            </div>
-            <div class="cardService">
-                 <img src="{{ asset('images/brain_7404610.png') }}"alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti laborum amet quidem inventore perspiciatis ullam temporibus non enim quaerat molestias, quae exercitationem impedit dolore ad hic ea earum voluptatem distinctio.</p>
-            </div>
-        </div>
+
+        {{ include('comment/show.html.twig') }}
     </div>
 </section>
 {% endblock %}

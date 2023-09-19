@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Service;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,23 +68,27 @@ public function index(Request $request, UserRepository $repo): Response
 
     
 
-    #[Route('/user/{id}', name: 'app_user_show', methods:['GET'])]
-    public function show($id, UserRepository $userRepo, NoteRepository $noteRepository): Response
+    #[Route('/user/{id}', name: 'app_user_show', methods:['GET','POST'])]
+    public function show($id, UserRepository $userRepo, NoteRepository $noteRepository, NoteController $noteController, EntityManagerInterface $entityManager): Response
     {
         $user = $userRepo->findOneBy(['id' => $id]);
-        $notes = $noteRepository->findBy(['user' => $user]);
-
+        $notes = $noteRepository->findNotesByUserOrderedByDateDesc(['user' => $user]);
+        
+        // Appel de l'action 'new' de NoteController pour récupérer le formulaire
+        $newNoteForm = $noteController->new($user->getId(), new Request(), $entityManager, $userRepo)->getContent();
+    
         $notesData = [];
         foreach ($notes as $note) {
-        $notesData[] = [
-        'createdAt' => $note->getCreatedAt()->format('Y-m-d H:i:s'),
-        'content' => $note->getContent(), 
-        ];
-}
-        return $this->render('user/show.html.twig',[
-            // 'notesData' => json_encode($notesData),
+            $notesData[] = [
+                'createdAt' => $note->getCreatedAt()->format('Y-m-d H:i:s'),
+                'content' => $note->getContent(), 
+            ];
+        }
+    
+        return $this->render('user/show.html.twig', [
             'user' => $user,
-            'notesData' => $notesData
+            'notesData' => $notesData,
+            'newNoteForm' => $newNoteForm,
         ]);
     }
 

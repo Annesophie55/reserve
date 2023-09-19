@@ -4,7 +4,6 @@
 
 {% block body %}
 <section>
-    <div class="bgcLogin"></div>
     <div class="blocPageConnexion">
         <div class="inscription">
             <h1>Inscription</h1>
@@ -21,7 +20,7 @@
                     Vous êtes connecté {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
                 </div>
             {% endif %}
-            <h2 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h2>
+            <h2 class="h3 mb-3 font-weight-normal">Connexion</h2>
             <div class="inputGrp">
                 <label for="inputEmail">Email</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>

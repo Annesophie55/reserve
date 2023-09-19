@@ -24,48 +24,36 @@ class NoteController extends AbstractController
     public function index(NoteRepository $noteRepository): Response
     {
         return $this->render('note/index.html.twig', [
-            'notes' => $noteRepository->findAll(),
+            'notes' => $noteRepository->findRdvsOrderByDateDesc(),
         ]);
     }
 
-    #[Route('/new/{user}', name: 'app_note_new', methods: ['GET', 'POST'])]
     public function new($user, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
-{
-    $user = $userRepo->find($user);
-
-    if (!$user) {
-        return $this->redirectToRoute('app_home');
-    }
-
-    $note = new Note();
-    $form = $this->createForm(NoteType::class, $note, [
-        'user' => $user,
-    ]);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted()) {
-        $formData = $request->request->all()['note']; // Notez le ['note'], qui est le nom du formulaire
-        $user = $entityManager->getRepository(User::class)->find($formData['userId']);
-
-        
-        if ($user) {
-            $note->setUser($user);
-
+    {
+        $user = $userRepo->find($user);
+    
+        if (!$user) {
+            return $this->redirectToRoute('app_home');
         }
     
-        if ($form->isValid()) {
+        $note = new Note();
+        $form = $this->createForm(NoteType::class, $note, [
+            'user' => $user,
+        ]);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
             $note->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($note);
             $entityManager->flush();
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user_show', ['id' => $user->getId()]);
         }
-    }
     
-    return $this->render('note/new.html.twig', [
-        'note' => $note,
-        'form' => $form,
-    ]);
-}
+        // Renvoie uniquement le formulaire de note au format HTML
+        return $this->render('note/_form.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 
     #[Route('/{id}/edit', name: 'app_note_edit', methods: ['GET', 'POST'])]

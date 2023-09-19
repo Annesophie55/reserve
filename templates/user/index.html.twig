@@ -5,17 +5,16 @@
 {% block body %}
 
 <div class="userListContainer">
-    <h1>Gérer vos utilisateurs</h1>
+    <h1>Liste de vos utilisateurs</h1>
     {% include 'components/_search.html.twig' %}
 <div class="userList">
         {% for user in users %}
         <ul>
             <li>{{ user.firstName }} {{ user.name }}</li>
-            <li>{{ user.phone }} </li>
-            <li>{{ user.email }} </li>
+            <li>Email : {{ user.email }} </li>
+            <li>Téléphone : {{ user.phone }} </li>
             <li><a href="{{ path('app_user_show', {'id': user.id }) }}">Afficher la fiche du client</a></li>
         </ul>
-        {{ include('user/_delete.html.twig') }}
         {% endfor %}
 </div>
 </div>

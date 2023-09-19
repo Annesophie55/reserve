@@ -6,23 +6,24 @@
 <section class="CommentAdminShowContainer">
     <h1>Liste des commentaires</h1>
 
-    <div class="commentBlock">
-        {% if comments %}
-        {% for comment in comments %}
-        <ul>
-                <li class="commentAuthor">{{ comment.user.getName() }} {{ comment.user.getFirstName() }}, le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</li>
-                <li class="commentTitle">{{ comment.title }}</li>
-                <li class="commentContent">{{ comment.content }}</li>
-                <li>
-                {{ include('comment/_delete_form.html.twig') }}
-                </li>
-        </ul>
-         {% endfor %}
-        {% else %}
-        <ul>
-            <li>no records found</li>
-        </ul>  
+        <div class="commentsBloc">
+            {% if comments %}
+            {% for comment in comments %}
+                  <div class="cardComment aos-comment" data-aos-duration="2000">
+                    <h3 class="commentAuthor">{{ comment.user.getName() }} {{ comment.user.getFirstName() }}<h3>
+                    <p>le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                    <p class="commentTitle">{{ comment.title }}</p>
+                    <p>{{ comment.content }}</p>
+                         {{ include('comment/_delete_form.html.twig') }}
+                </div>
+               
+            
+             {% endfor %}
+            {% else %}
+        </div>
+        <div>
+            <span>no records found</span>
+        </div>  
     {% endif %}
-    </div>
 </section>
 {% endblock %}

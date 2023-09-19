@@ -7,8 +7,11 @@
     <div class="rdvBloc">
         <h1>Vous avez rendez-vous avec <br> {{ rdv.getUser().getName() }} {{ rdv.getUser().getFirstName() }}</h1>
         <p class="date"> Le {{ rdv.getHeureDebut()|date('d/m/Y à H:i') }}</p>
-        <p class="details">Détails du rendez-vous :  {{ rdv.getDetails() }} <p>
-        {{ include('rdv/_delete_form.html.twig') }}</p>
+        <p class="details">Détails du rendez-vous :  {{ rdv.getDetails() }} </p>
+        <div class="grp">
+            {{ include('rdv/_delete_form.html.twig') }}
+            <a href="{{ path('app_user_show', {'id': rdv.getUser().getId() })}}">Accèder à la fiche du client</a>
+        </div>
 
     </div>
 </section>

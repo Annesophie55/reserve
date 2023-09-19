@@ -254,6 +254,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-
+// Effet pour l'affichage des commentaires sur la page home
+document.addEventListener('DOMContentLoaded', function() {
+    const aosClasses = ['fade-up', 'fade-down', 'fade-left', 'fade-right', 'fade-down-right', 'fade-down-left', 'flip-left', 'flip-right', 'flip-up', 'flip-down', 'zoom-in', 'zoom-in-up', 'zoom-in-down', 'zoom-in-left', 'zoom-in-right', 'zoom-out', 'zoom-out-up', 'zoom-out-down', 'zoom-out-right', 'zoom-out-left']; // Liste des classes AOS possibles
+  
+    const aosComments = document.querySelectorAll('.aos-comment');
+  
+    aosComments.forEach(function(comment) {
+      const randomAOSClass = aosClasses[Math.floor(Math.random() * aosClasses.length)];
+      comment.setAttribute('data-aos', randomAOSClass);
+    });
+  
+    AOS.init(); // Initialisez AOS après avoir attribué les classes AOS aléatoires
+  });
+  
 

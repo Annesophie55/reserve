@@ -34,17 +34,29 @@ class RdvRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // Dans RdvRepository.php
+
 public function findUpcomingByUser(User $user)
 {
     return $this->createQueryBuilder('r')
         ->where('r.user = :user')
-        ->andWhere('r.date > :now') // Supposons que `date` est le champ pour la date du rdv
+        ->andWhere('r.heure_debut > :now') 
         ->setParameter('user', $user)
         ->setParameter('now', new \DateTime())
         ->getQuery()
         ->getResult();
 }
+// Dans votre RdvRepository.php
+public function findUpcomingByStatus(int $status = 1)
+{
+    return $this->createQueryBuilder('r')
+        ->where('r.heure_debut > :now')
+        ->andWhere('r.status = :status')
+        ->setParameter('now', new \DateTime())
+        ->setParameter('status', $status)
+        ->getQuery()
+        ->getResult();
+}
+
 
 
 //    /**
