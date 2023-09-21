@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// #[Route('/rdv')]
 class RdvController extends AbstractController
 {
     private $entityManager;
@@ -34,14 +33,14 @@ class RdvController extends AbstractController
     }
 
     #[Route('/appointements', name: 'app_rdv_appointements', methods: ['GET'])]
-    public function appointements(Request $request)
-{
+    public function appointements()
+    {
     return $this->render('rdv/_form.html.twig');
-}
+    }
 
-#[Route('/appointements', name: 'app_rdv_events', methods: ['GET'])]
-public function getEvents(RdvRepository $repo)
-{
+    #[Route('/appointements', name: 'app_rdv_events', methods: ['GET'])]
+    public function getEvents(RdvRepository $repo)
+    {
     
 
     $events = $repo->findAll();
@@ -56,55 +55,42 @@ public function getEvents(RdvRepository $repo)
     }, $events);
 
     return $this->json($formattedEvents);
-}
+    }
 
-#[Route("/available-slots", name:"available_slots", methods:['GET'])
-]
-public function availableSlots(Request $request, EntityManagerInterface $em)
-{
+    #[Route("/available-slots", name:"available_slots", methods:['GET'])
+    ]
+    public function availableSlots(Request $request, EntityManagerInterface $em)
+    {
+    $dateString = $request->query->get('date');
+    $date = new \DateTimeImmutable($dateString);
 
-$dateString = $request->query->get('date');
-$date = new \DateTimeImmutable($dateString);
-
-
-    $dayOfWeek = $date->format('N'); // 1 = Monday, 2 = Tuesday, ..., 7 = Sunday
-
-
-
-
+    $dayOfWeek = $date->format('N');
     $availableSlots = [];
 
     if (in_array($dayOfWeek, [1, 2, 4, 5])) {  
         $startHour = 9;  // 9am
         $endHour = 20.50; // 8:30pm
-        
 
         for ($hour = $startHour; $hour <= $endHour; $hour += 0.50) {
             $slotStart = clone $date;
             $slotStart = $slotStart->setTime(floor($hour), ($hour * 60) % 60); 
 
-        $slotEnd = clone $slotStart;
-$slotEnd = $slotEnd->modify('+1 hour 30 minutes');   
-$endTime = clone $slotStart;
-$endTime = $endTime->modify('+1 hour 30 minutes');
+            $slotEnd = clone $slotStart;
+            $slotEnd = $slotEnd->modify('+1 hour 30 minutes'); 
 
+            $endTime = clone $slotStart;
+            $endTime = $endTime->modify('+1 hour 30 minutes');
+            $existingReservations = $em->getRepository(Rdv::class)
+            ->findOverlappingReservations($slotStart, $endTime);
 
-
-
-$existingReservations = $em->getRepository(Rdv::class)
-    ->findOverlappingReservations($slotStart, $endTime);
-
-if (count($existingReservations) === 0) {
-    $availableSlots[] = [
-        'start' => $slotStart->format('Y-m-d H:i:s'),
-        'end' => $endTime->format('Y-m-d H:i:s'),
-        'rendering' => 'background',
-    ];
-}
-
+            if (count($existingReservations) === 0) {
+            $availableSlots[] = [
+            'start' => $slotStart->format('Y-m-d H:i:s'),
+            'end' => $endTime->format('Y-m-d H:i:s'),
+            'rendering' => 'background',
+            ];}
         }
     }
-
     return $this->json($availableSlots);
 }
 

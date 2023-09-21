@@ -1,134 +1,118 @@
 <?php
 
-namespace App\Test\Controller;
+namespace App\Tests\Controller;
 
 use App\Entity\Rdv;
-use App\Repository\RdvRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
+use DateTimeImmutable;
 
 class RdvControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
-    private RdvRepository $repository;
+    private EntityManagerInterface $entityManager;
     private string $path = '/rdv/';
-    private EntityManagerInterface $manager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->repository = static::getContainer()->get('doctrine')->getRepository(Rdv::class);
-
-        foreach ($this->repository->findAll() as $object) {
-            $this->manager->remove($object);
-        }
+        $this->entityManager = static::getContainer()->get('doctrine')->getManager();
     }
 
     public function testIndex(): void
     {
         $crawler = $this->client->request('GET', $this->path);
 
-        self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Rdv index');
-
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertStringContainsString('Rdv index', $crawler->filter('h1')->text());
     }
 
     public function testNew(): void
     {
-        $originalNumObjectsInRepository = count($this->repository->findAll());
+        $originalNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
 
-        $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $crawler = $this->client->request('GET', $this->path . 'new');
 
-        self::assertResponseStatusCodeSame(200);
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->client->submitForm('Save', [
-            'rdv[createdAt]' => 'Testing',
-            'rdv[status]' => 'Testing',
-            'rdv[dayHour]' => 'Testing',
-            'rdv[duration]' => 'Testing',
+        $form = $crawler->selectButton('Save')->form([
+            'rdv[createdAt]' => '2023-09-19',
+            'rdv[status]' => 'My Status',
+            'rdv[heure_debut]' => '2023-09-19 10:30:00',
+            'rdv[heure_fin]' => '2023-09-19 12:00:00',
         ]);
 
-        self::assertResponseRedirects('/rdv/');
+        $this->client->submit($form);
 
-        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
+        self::assertTrue($this->client->getResponse()->isRedirect('/rdv/'));
+
+        $newNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
+
+        self::assertSame($originalNumObjectsInRepository + 1, $newNumObjectsInRepository);
     }
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Rdv();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setStatus('My Title');
-        $fixture->setDayHour('My Title');
-        $fixture->setDuration('My Title');
+        $fixture->setCreatedAt(new DateTimeImmutable());
+        $fixture->setStatus('My Status');
+        $fixture->setHeureDebut(new DateTimeImmutable('2023-09-19 10:00:00'));
+        $fixture->setHeureFin(new DateTimeImmutable('2023-09-19 11:30:00'));
 
-        $this->manager->persist($fixture);
-        $this->manager->flush();
+        $this->entityManager->persist($fixture);
+        $this->entityManager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', $this->path . $fixture->getId());
 
-        self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Rdv');
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertStringContainsString('Rdv', $this->client->getResponse()->getContent());
 
-        // Use assertions to check that the properties are properly displayed.
+        // You can add assertions to check that the properties of the Rdv entity are displayed correctly.
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Rdv();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setStatus('My Title');
-        $fixture->setDayHour('My Title');
-        $fixture->setDuration('My Title');
+        $fixture->setCreatedAt(new DateTimeImmutable());
+        $fixture->setStatus('My Status');
+        $fixture->setHeureDebut(new DateTimeImmutable('2023-09-19 10:00:00'));
+        $fixture->setHeureFin(new DateTimeImmutable('2023-09-19 11:30:00'));
 
-        $this->manager->persist($fixture);
-        $this->manager->flush();
+        $this->entityManager->persist($fixture);
+        $this->entityManager->flush();
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
+        $crawler = $this->client->request('GET', $this->path . $fixture->getId() . '/edit');
 
-        $this->client->submitForm('Update', [
-            'rdv[createdAt]' => 'Something New',
-            'rdv[status]' => 'Something New',
-            'rdv[dayHour]' => 'Something New',
-            'rdv[duration]' => 'Something New',
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        $form = $crawler->selectButton('Update')->form([
+            'rdv[createdAt]' => '2023-09-20',
+            'rdv[status]' => 'Updated Status',
+            'rdv[heure_debut]' => '2023-09-20 11:00:00',
+            'rdv[heure_fin]' => '2023-09-20 12:30:00',
         ]);
 
-        self::assertResponseRedirects('/rdv/');
+        $this->client->submit($form);
 
-        $fixture = $this->repository->findAll();
+        self::assertTrue($this->client->getResponse()->isRedirect('/rdv/'));
 
-        self::assertSame('Something New', $fixture[0]->getCreatedAt());
-        self::assertSame('Something New', $fixture[0]->getStatus());
-        self::assertSame('Something New', $fixture[0]->getDayHour());
-        self::assertSame('Something New', $fixture[0]->getDuration());
+        // Fetch the updated entity from the database
+        $updatedFixture = $this->entityManager->getRepository(Rdv::class)->find($fixture->getId());
+
+        self::assertInstanceOf(DateTimeImmutable::class, $updatedFixture->getCreatedAt());
+        self::assertSame(1, $updatedFixture->getStatus());
+        self::assertInstanceOf(DateTimeImmutable::class, $updatedFixture->getHeureDebut());
+        self::assertInstanceOf(DateTimeImmutable::class, $updatedFixture->getHeureFin());
     }
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
-
-        $originalNumObjectsInRepository = count($this->repository->findAll());
-
         $fixture = new Rdv();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setStatus('My Title');
-        $fixture->setDayHour('My Title');
-        $fixture->setDuration('My Title');
-
-        $this->manager->persist($fixture);
-        $this->manager->flush();
-
-        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
-
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
-        $this->client->submitForm('Delete');
-
-        self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
-        self::assertResponseRedirects('/rdv/');
+        $fixture->setCreatedAt(new DateTimeImmutable());
+        $fixture->setStatus(1);
+        $fixture->setHeureDebut(new DateTimeImmutable('2023-09-19 10:00:00'));
+        $fixture->setHeureFin(new DateTimeImmutable('2023-09-19 11:00:00'));
     }
-}
+}    

@@ -18,7 +18,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Votre nom',  // Personnaliser le label du champ name
+                'label' => 'Votre nom',  
             ])
             ->add('firstName', null, [
                 'label' => 'Votre prénom', ])
@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Etes vous d\'accord avec nos termes ?',
                     ]),
                 ],
             ])

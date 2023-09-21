@@ -3,7 +3,9 @@
 namespace App\Test\Controller;
 
 use App\Entity\Note;
+use App\Entity\User;
 use App\Repository\NoteRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -61,10 +63,9 @@ class NoteControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Note();
-        $fixture->setCreatedAt('My Title');
+        $fixture->setCreatedAt(new DateTimeImmutable);
         $fixture->setContent('My Title');
-        $fixture->setUser('My Title');
-        $fixture->setRdv('My Title');
+        $fixture->setUser(new User);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,10 +82,9 @@ class NoteControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Note();
-        $fixture->setCreatedAt('My Title');
+        $fixture->setCreatedAt(new DateTimeImmutable);
         $fixture->setContent('My Title');
-        $fixture->setUser('My Title');
-        $fixture->setRdv('My Title');
+        $fixture->setUser(new User);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -105,7 +105,6 @@ class NoteControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getCreatedAt());
         self::assertSame('Something New', $fixture[0]->getContent());
         self::assertSame('Something New', $fixture[0]->getUser());
-        self::assertSame('Something New', $fixture[0]->getRdv());
     }
 
     public function testRemove(): void
@@ -115,10 +114,9 @@ class NoteControllerTest extends WebTestCase
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Note();
-        $fixture->setCreatedAt('My Title');
+        $fixture->setCreatedAt(new DateTimeImmutable);
         $fixture->setContent('My Title');
-        $fixture->setUser('My Title');
-        $fixture->setRdv('My Title');
+        $fixture->setUser(new User);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

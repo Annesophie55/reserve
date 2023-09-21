@@ -3,8 +3,6 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 
-// window.FullCalendar = Calendar;
-
 document.addEventListener('DOMContentLoaded', function() {
     const calendarElForm = document.getElementById('formCalendar');
 
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json'
             }
         })
-        
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -51,11 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(endDate);
 
             console.log("Début de la mise à jour des créneaux");
-console.log("Slot:", slot);
+            console.log("Slot:", slot);
 
-
-
-    
             let formattedStartDate = startDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
             let formattedEndDate = endDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     
@@ -234,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var services = data.services;
                     var modalContent = document.querySelector('.modal ul');
                     
-                    modalContent.innerHTML = ''; // Clear existing content
+                    modalContent.innerHTML = '';
                     
                     services.forEach(function(service) {
                         var serviceLink = document.createElement('a');
