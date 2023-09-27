@@ -27,7 +27,7 @@ class Comment
     private ?User $user = null;
 
     #[ORM\Column]
-    private ?bool $isValid = true;
+    private ?bool $isValid = false;
 
     public function getId(): ?int
     {

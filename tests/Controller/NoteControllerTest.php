@@ -98,7 +98,7 @@ class NoteControllerTest extends WebTestCase
             'note[rdv]' => 'Something New',
         ]);
 
-        self::assertResponseRedirects('/note/');
+        self::assertResponseRedirects('/note');
 
         $fixture = $this->repository->findAll();
 

@@ -42,6 +42,7 @@ public function findUpcomingByUser(User $user)
         ->andWhere('r.heure_debut > :now') 
         ->setParameter('user', $user)
         ->setParameter('now', new \DateTime())
+        ->orderBy('r.heure_debut', 'ASC') 
         ->getQuery()
         ->getResult();
 }

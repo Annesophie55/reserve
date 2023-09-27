@@ -1,6 +1,56 @@
+
+<style>
+    #container {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .ck.ck-reset.ck-editor.ck-rounded-corners{
+        box-shadow: -1px 1px 2px rgb(85, 3, 94);
+        border-radius: 10px;
+        width: 98%;
+        margin: 10px auto;
+
+    }
+    .ck-editor__editable[role="textbox"] {
+        /* editing area */
+        min-height: 200px;
+    }
+    .ck-content .image {
+        /* block images */
+        max-width: 80%;
+        margin: 20px auto;
+    }
+    .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred{
+        background-color: #ffffff5f;
+        padding: 5px;
+    }
+</style>
+
 <div class="commentForm">
     {{ form_start(form) }}
         {{ form_widget(form) }}
+        <div id="ckeditor1" name="content"></div>
     <button class="newCommentBtn">{{ button_label|default('Valider') }}</button>
     {{ form_end(form) }}
 </div>
+<script>
+ClassicEditor
+    .create(document.querySelector('#ckeditor1'), {
+        toolbar: [
+            'bold', 'italic', 'underline', 'strikethrough',
+            '|', // Barre verticale pour séparer les groupes d'outils
+            'numberedList', 'bulletedList', 'outdent', 'indent',
+            '|',
+            'undo', 'redo',
+            '|',
+            'link',
+            '|',
+            'removeFormat'
+        ]
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+</script>

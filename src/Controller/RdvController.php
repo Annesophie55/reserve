@@ -173,7 +173,7 @@ public function updateRdvStatus()
 }
 
 
-#[Route("/show", name:"app_rdv_show", methods:["GET"])]
+#[Route("admin/show", name:"app_rdv_show", methods:["GET"])]
     public function show( RdvRepository $rdvRepository, UserRepository $userRepository, RdvController $rdvController): Response
     {
         $rdvs = $rdvController->updateRdvStatus();
@@ -207,15 +207,15 @@ public function updateRdvStatus()
     }
 
     #[Route("/my-appointments", name:"app_rdv_my_appointments", methods:["GET"])]
-public function myAppointments(RdvRepository $repo): Response
-{
-    $user = $this->getUser();
-    $rdvs = $repo->findUpcomingByUser($user);
+    public function myAppointments(RdvRepository $repo): Response
+    {
+        $user = $this->getUser();
+        $rdvs = $repo->findUpcomingByUser($user);
 
-    return $this->render('rdv/index.html.twig', [
+        return $this->render('rdv/index.html.twig', [
         'rdvs' => $rdvs
-    ]);
-}
+        ]);
+    }
 
 
     #[Route('rdv/{id}', name: 'app_rdv_delete', methods: ['POST'])]

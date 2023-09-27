@@ -2,7 +2,7 @@
         {% for comment in comments %}      
             <div class="cardComment aos-comment" data-aos-duration="2000">
                 <h3 class="commentAuthor"> {{ comment.user.getFirstName() }}   </h3>
-                <p>le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                <p>le {{ comment.createdAt|date('d-m-Y à H:i:s') }}</p>
               
                 <p class="commentTitle">{{ comment.title }}</p>
                 <p>{{ comment.content }}</p>

@@ -20,18 +20,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/note')]
 class NoteController extends AbstractController
 {
-    #[Route('/', name: 'app_note_index', methods: ['GET'])]
-    public function index(NoteRepository $noteRepository): Response
+    #[Route('{id}/new', name: 'app_note_new', methods: ['POST'])]
+    public function new($id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
     {
-        return $this->render('note/index.html.twig', [
-            'notes' => $noteRepository->findRdvsOrderByDateDesc(),
-        ]);
-    }
-
-    public function new($user, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
-    {
-        $user = $userRepo->find($user);
-    
+        $user = $userRepo->findOneBy(['id' => $id]);
         if (!$user) {
             return $this->redirectToRoute('app_home');
         }
@@ -41,17 +33,18 @@ class NoteController extends AbstractController
             'user' => $user,
         ]);
         $form->handleRequest($request);
-    
         if ($form->isSubmitted() && $form->isValid()) {
             $note->setCreatedAt(new \DateTimeImmutable());
+            $note->setUser($user);
             $entityManager->persist($note);
             $entityManager->flush();
-            return $this->redirectToRoute('app_user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('app_user_show', ['id'=>$user->getId()]);
         }
     
         // Renvoie uniquement le formulaire de note au format HTML
         return $this->render('note/_form.html.twig', [
             'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 

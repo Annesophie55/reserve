@@ -9,15 +9,16 @@
         <div class="commentsBloc">
             {% if comments %}
             {% for comment in comments %}
-                  <div class="cardComment aos-comment" data-aos-duration="2000">
+                <div class="cardComment aos-comment" data-aos-duration="2000">
                     <h3 class="commentAuthor">{{ comment.user.getName() }} {{ comment.user.getFirstName() }}<h3>
                     <p>le {{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
                     <p class="commentTitle">{{ comment.title }}</p>
                     <p>{{ comment.content }}</p>
-                         {{ include('comment/_delete_form.html.twig') }}
+                    <div class="commentChoiceGrp">
+                        {{ include('comment/_delete_form.html.twig') }}
+                        {{ include('components/_button.html.twig') }}
+                    </div>
                 </div>
-               
-            
              {% endfor %}
             {% else %}
         </div>

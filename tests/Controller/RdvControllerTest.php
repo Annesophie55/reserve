@@ -109,10 +109,30 @@ class RdvControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        // Create a fixture and persist it to the database.
         $fixture = new Rdv();
         $fixture->setCreatedAt(new DateTimeImmutable());
         $fixture->setStatus(1);
         $fixture->setHeureDebut(new DateTimeImmutable('2023-09-19 10:00:00'));
         $fixture->setHeureFin(new DateTimeImmutable('2023-09-19 11:00:00'));
+    
+        $this->entityManager->persist($fixture);
+        $this->entityManager->flush();
+    
+        // Count the number of objects before the deletion operation.
+        $originalNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
+    
+        // Send a DELETE request to the endpoint responsible for deletion.
+        $this->client->request('DELETE', $this->path . $fixture->getId());
+        
+        // Assert that the response is a redirection (or whatever your endpoint returns after deletion).
+        self::assertTrue($this->client->getResponse()->isRedirect('/'));
+    
+        // Count the number of objects after the deletion operation.
+        $newNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
+    
+        // Assert that the number of objects has decreased by one.
+        self::assertSame($originalNumObjectsInRepository - 1, $newNumObjectsInRepository);
     }
+    
 }    

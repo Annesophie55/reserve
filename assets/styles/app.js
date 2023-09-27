@@ -217,36 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }}
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const serviceItem = document.getElementById('serviceItem');
 
-    if (serviceItem) {
-        serviceItem.addEventListener('mouseenter', function() {
-            fetch(servicesJsonUrl)
-                .then(response => response.json())
-                .then(data => {
-                    var services = data.services;
-                    var modalContent = document.querySelector('.modal ul');
-                    
-                    modalContent.innerHTML = '';
-                    
-                    services.forEach(function(service) {
-                        var serviceLink = document.createElement('a');
-                        serviceLink.href = service.url;
-                        serviceLink.textContent = service.name;
-
-                        var listItem = document.createElement('li');
-                        listItem.appendChild(serviceLink);
-
-                        modalContent.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        });
-    }
-});
 
 // Effet pour l'affichage des commentaires sur la page home
 document.addEventListener('DOMContentLoaded', function() {

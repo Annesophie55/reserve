@@ -1,0 +1,74 @@
+<!-- Style CSS pour le bouton -->
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 25px;
+
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  transition: .4s;
+  border: 1px solid black;
+  border-radius: 15px;
+  width: 50px;
+  height: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: green;
+}
+
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+</style>
+
+<!-- Bouton Toggle -->
+<label class="switch">
+  <input type="checkbox" class="comment-toggle" data-comment-id="{{ comment.id }}" {{ comment.isValid ? 'checked' : '' }}>
+  <span class="slider round"></span>
+</label>
+
+<script>
+$(document).ready(function() {
+  $(".comment-toggle").change(function() {
+    // Obtenir l'ID du commentaire et la nouvelle valeur
+    const commentId = $(this).data("comment-id");
+    const isValid = $(this).prop("checked") ? 1 : 0;
+
+    // Effectuer la requête AJAX
+    $.ajax({
+      url: `/comment/${commentId}/toggle`,
+      method: "POST",
+      data: { commentSlider: isValid },
+    });
+  });
+});
+</script>
+

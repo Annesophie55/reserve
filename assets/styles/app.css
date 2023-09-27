@@ -5,6 +5,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
 
 
 /* HOMEPAGE
@@ -111,7 +116,7 @@ Services details */
 .cardComment{
   color: aliceblue;
   width: 320px;
-  height: 290px;
+  min-height: 320px;
   background: rgb(64,21,186);
   background: linear-gradient(186deg, rgba(64,21,186,1) 13%, rgba(79,0,212,1) 35%, rgba(190,33,212,1) 73%, rgba(175,56,237,1) 94%);
   box-shadow: -2px 3px 5px black;
@@ -133,6 +138,16 @@ Services details */
   padding: 7px;
   font-family: 'Itim';
 }
+
+.commentChoiceGrp{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 7px;
+}
+
+
 /* Affichage des commentaires sur la home page */
 
 /* Carte services */
@@ -1120,7 +1135,7 @@ footer ul li{
 
 }
 .commentForm form{
-  width: 320px;
+  width: 500px;
   padding: 8px;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
@@ -1133,6 +1148,13 @@ footer ul li{
   text-align: center;
   font-size: 32px;
   padding: 26px;
+}
+
+#comment div{
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: 5px;
 }
 
 .commentForm form input, .commentForm form label{
@@ -1213,8 +1235,6 @@ form #comment{
   font-family: 'Itim';
 }
 .commentDeleteForm button{
-  margin: auto;
-  display: block;
   padding: 4px 7px;
   color: #0b030a;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);

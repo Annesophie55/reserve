@@ -18,7 +18,7 @@ class UserController extends AbstractController
 {
 
 
-#[Route('/user', name: 'app_user')]
+#[Route('admin/user', name: 'app_user')]
 public function index(Request $request, UserRepository $repo): Response
 {
     $query = $request->query->get('query');
@@ -28,9 +28,8 @@ public function index(Request $request, UserRepository $repo): Response
             $this->addFlash('warning', 'Aucun utilisateur correspondant à votre recherche.');
         }
     } else {
-        $users = $repo->findAll();
+        $users = $repo->findAllExceptAdmin();
     }
-
     return $this->render('user/index.html.twig', [
         'users' => $users,
     ]);
@@ -46,20 +45,20 @@ public function index(Request $request, UserRepository $repo): Response
         ]);
     }
 
-    #[Route("/api/search/user/{query?}", name:"search_user")]
+    #[Route("admin/api/search/user/{query?}", name:"search_user")]
     public function searchUser(?string $query, UserRepository $repo): Response {
         if ($query) {
             $users = $repo->searchUsers($query);
         } else {
-            $users = $repo->findAll();
+            $users = $repo->findAllExceptAdmin();
         }
     
         $usersArray = [];
         foreach ($users as $user) {
             $usersArray[] = [
                 'id' => $user->getId(),
-                'name' => $user->getName(), // Ajustez en fonction de vos champs
-                'email' => $user->getEmail() // Ajustez en fonction de vos champs
+                'name' => $user->getName(),
+                'email' => $user->getEmail()
             ];
         }
         return new JsonResponse($usersArray);
@@ -84,7 +83,6 @@ public function index(Request $request, UserRepository $repo): Response
                 'content' => $note->getContent(), 
             ];
         }
-    
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'notesData' => $notesData,

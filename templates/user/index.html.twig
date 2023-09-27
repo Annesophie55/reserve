@@ -3,11 +3,10 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-
 <div class="userListContainer">
     <h1>Liste de vos utilisateurs</h1>
     {% include 'components/_search.html.twig' %}
-<div class="userList">
+    <div class="userList">
         {% for user in users %}
         <ul>
             <li>{{ user.firstName }} {{ user.name }}</li>
@@ -16,6 +15,6 @@
             <li><a href="{{ path('app_user_show', {'id': user.id }) }}">Afficher la fiche du client</a></li>
         </ul>
         {% endfor %}
-</div>
+    </div>
 </div>
 {% endblock %}

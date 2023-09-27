@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, {'action': path('app_note_new', {'id': user.id})}) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Enregistrer la note') }}</button>
 {{ form_end(form) }}
