@@ -26,13 +26,21 @@
     }
 </style>
 
+
 <div class="commentForm">
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <div id="ckeditor1" name="content"></div>
-    <button class="newCommentBtn">{{ button_label|default('Valider') }}</button>
+        <div class="inputGrp">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+        </div>
+       <div class="inputGrp">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'id': 'ckeditor1'}}) }}
+         </div>
+        <button class="newCommentBtn" id="save">{{ button_label|default('Valider') }}</button>
     {{ form_end(form) }}
 </div>
+
 <script>
 ClassicEditor
     .create(document.querySelector('#ckeditor1'), {

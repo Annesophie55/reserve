@@ -16,8 +16,6 @@ use Ratchet\MessageComponentInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Firebase\JWT\SignatureInvalidException;
 
-
-
 class ChatServer implements MessageComponentInterface {
     protected $clients;
     protected $entityManager;
@@ -102,8 +100,6 @@ class ChatServer implements MessageComponentInterface {
             $recipientConnection->send($receivedMessage);
         }
     }
-
-
     public function onClose(ConnectionInterface $conn) {
         $this->clients->detach($conn);
     }

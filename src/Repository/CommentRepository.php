@@ -44,13 +44,14 @@ class CommentRepository extends ServiceEntityRepository
        ;
    }
 
-//    public function findOneBySomeField($value): ?Comment
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOneByEmail(string $email)
+   {
+       return $this->createQueryBuilder('c')
+           ->innerJoin('c.user_id', 'u')
+           ->andWhere('u.email = :email')
+           ->setParameter('email', $email)
+           ->getQuery()
+           ->getOneOrNullResult();
+   }
+   
 }

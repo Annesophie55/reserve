@@ -5,15 +5,12 @@
   display: inline-block;
   width: 60px;
   height: 25px;
-
 }
-
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -28,8 +25,7 @@
   width: 50px;
   height: 25px;
 }
-
-.slider:before {
+.slider::before {
   position: absolute;
   content: "";
   height: 25px;
@@ -39,11 +35,9 @@
   border-radius: 50%;
   transition: .4s;
 }
-
 input:checked + .slider {
   background-color: green;
 }
-
 input:checked + .slider:before {
   transform: translateX(25px);
 }
@@ -60,15 +54,16 @@ $(document).ready(function() {
   $(".comment-toggle").change(function() {
     // Obtenir l'ID du commentaire et la nouvelle valeur
     const commentId = $(this).data("comment-id");
+    console.log(commentId);
     const isValid = $(this).prop("checked") ? 1 : 0;
 
-    // Effectuer la requête AJAX
+    // Effectue la requête AJAX en utilisant la route Symfony
     $.ajax({
-      url: `/comment/${commentId}/toggle`,
-      method: "POST",
-      data: { commentSlider: isValid },
+    url: `/comment/${commentId}/toggle?isValid=${isValid}`,
+    method: "GET",
     });
   });
 });
+
 </script>
 

@@ -80,7 +80,7 @@ public function index(Request $request, UserRepository $repo): Response
         foreach ($notes as $note) {
             $notesData[] = [
                 'createdAt' => $note->getCreatedAt()->format('Y-m-d H:i:s'),
-                'content' => $note->getContent(), 
+                'content' => $note->getContent(),
             ];
         }
         return $this->render('user/show.html.twig', [

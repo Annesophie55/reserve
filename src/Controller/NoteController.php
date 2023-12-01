@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/note')]
 class NoteController extends AbstractController
 {
-    #[Route('{id}/new', name: 'app_note_new', methods: ['POST'])]
+    #[Route('admin/{id}/new', name: 'app_note_new', methods: ['POST'])]
     public function new($id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepo): Response
     {
         $user = $userRepo->findOneBy(['id' => $id]);
@@ -40,8 +40,6 @@ class NoteController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_user_show', ['id'=>$user->getId()]);
         }
-    
-        // Renvoie uniquement le formulaire de note au format HTML
         return $this->render('note/_form.html.twig', [
             'form' => $form->createView(),
             'user' => $user

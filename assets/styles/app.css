@@ -223,12 +223,10 @@ nav{
   height: max-content;
   background: rgb(153,17,225);
   background: linear-gradient(135deg, rgba(153,17,225,1) 23%, rgba(172,87,236,1) 49%, rgba(161,17,182,1) 71%);
-}
-.navbar{
   display: flex;
   justify-content: space-between;
-  width: 100%;
 }
+
 .brandContainer{
   display: flex;
 }
@@ -314,12 +312,11 @@ nav .user {
 .navListSM{
   display: none;
   position: absolute;
-  top: 70px;
+  top: 60px;
   width: 100%;
   background: rgb(153,17,225);
   background: linear-gradient(135deg, rgba(153,17,225,1) 23%, rgba(172,87,236,1) 49%, rgba(161,17,182,1) 71%);
   z-index: 7;
-
 }
 
 .navListSM li{
@@ -447,6 +444,7 @@ nav .user {
 /*Formulaire de connexion*/
 .blocPageConnexion{
   display: flex;
+  min-height:70vh ;
   justify-content: space-around;
   align-items: center;
   padding: 40px 0px;
@@ -494,6 +492,9 @@ nav .user {
 .blocPageConnexion form .inputGrp .form-control{
   margin: 7px 0px;
   width: 100%;
+}
+#comment_title{
+  display: block;
 }
 .loginForm{
   width: 50%;
@@ -549,7 +550,6 @@ nav .user {
   background-color: rgb(162, 233, 246);
   box-shadow: -2px 3px 5px black;
   border-radius: 15px;
-
 }
 
 .rdvBloc h1{
@@ -662,8 +662,12 @@ nav .user {
 }
 
 /* affichage des rdvs coté client */
-.rdvsContainer a img{
+.rdvsContainer a{
   width: 40px;
+  height: 40px;
+} 
+.rdvsContainer a svg{
+  scale: 2;
 }
 
 .btn img{
@@ -781,16 +785,17 @@ nav .user {
 
 .registerContainer{
   width: 100%;
-  height: auto;
+  min-height: 100%;
   background-image: url(../images/orchidee.jpg);
   background-position: center;
   background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 50px 0;
+  padding: 20px 0 40px 0;
 
 }
+
 .registerContainer h1{
   text-align: center;
   margin: 15px 0;
@@ -807,6 +812,7 @@ nav .user {
   font-family: 'Itim';
   flex-direction: column;
   padding: 15px;
+  background-color: rgba(245, 245, 245, 0.531);
 }
 .registerContainer form div:not(:nth-child(6)){
   display: flex;
@@ -987,7 +993,7 @@ nav .user {
 .userInfo{
   width: 75%;
   min-height: 70vh;
-  background-color: rgb(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.828);
   margin: 25px 0;
   border-radius: 5px;
   border: 1px solid black;
@@ -996,7 +1002,9 @@ nav .user {
   width: 100%;
   text-align: center;
   font-family: 'Lobster';
+  font-size: 80px;
   margin: 50px 0;
+  text-decoration: underline;
 }
 .userInfo .info{
   padding: 7px;
@@ -1007,15 +1015,23 @@ nav .user {
 .userInfo ul:first-of-type li{
   font-family: 'Itim';
   list-style-type: none;
+  font-size: 24px;
 }
-.userInfo form:first-of-type{
-  width: 75%;
-  margin: 35px auto 18px 20px;
+.userInfo form:last-of-type{
+  padding: 29px 45px 29px 19px;
   font-family: 'Itim';
 }
-.userDelete button img{
+.userDelete{
+  width: 100% !important;
+  font-family: 'Itim';
+}
+.userDelete .btn{
+  display: flex;
   box-shadow: none;
   border: none !important;
+  padding: 3px 5px;
+  background-color: rgba(242, 27, 27, 0.625) !important;
+  margin-left: auto;
 }
 button, a{
   cursor: pointer;
@@ -1069,6 +1085,7 @@ footer{
   background: linear-gradient(186deg, rgba(99,66,193,1) 13%, rgba(146,30,208,1) 35%, rgba(11,21,161,1) 73%, rgba(87,170,234,1) 94%);
   padding: 7px;
 }
+
 .userFooter{
   margin: 0;
 }
@@ -1125,8 +1142,7 @@ footer ul li{
   height: auto;
   background-image: url('../images/sweetBaby.jpg');
   background-size: cover;
-  background-position: right;
-
+  background-position: left;
 }
 .commentForm{
   width: 100%;
@@ -1135,7 +1151,8 @@ footer ul li{
 
 }
 .commentForm form{
-  width: 500px;
+  width: 360px;
+  height: auto;
   padding: 8px;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
@@ -1160,10 +1177,13 @@ footer ul li{
 .commentForm form input, .commentForm form label{
   font-family: 'Itim';
   width: 300px;
-  margin: auto;
   border: none;
   color: #f7f0f6;
   font-size: 18px;
+}
+.commentForm form .inputGrp{
+  margin: auto;
+  width: 80%;
 }
 .commentForm form input{
   background-color: #ffffff5f;
@@ -1186,13 +1206,14 @@ form #comment{
 }
 .newCommentBtn{
   padding: 3px 5px;
+  display: block;
   background-color: #32f5be5c;
   color: #f6f2f5;
   box-shadow: -1px 1px 2px rgb(85, 3, 94);
   border-radius: 15px;
   font-family: 'Itim';
   font-size: 16px;
-  margin: 10px 5px 10px 77%;
+  margin: 10px auto;
   border: none;
 }
 
@@ -1428,7 +1449,6 @@ form #comment{
     display: flex;
     cursor: pointer;
   }
-
   .menu-btn{
     cursor: pointer;
   }
@@ -1493,6 +1513,39 @@ form #comment{
     width: 80%;
   }
 }
+@media screen and (max-width: 630px){
+  .rdvBloc{
+    width : 300px;
+    height: auto;
+  }
+  .rdvBloc .grp{
+    flex-direction: column;
+  }
+  .rdvBloc .grp form + a{
+    width: fit-content;
+    margin: 10px auto;
+  }
+  footer ul{
+    display: block;
+    width: 100%;
+    font-size: 14px;
+  }
+  .brandContainer{
+    display: none;
+  }
+  .cardComment{
+    width: 260px;
+  }
+  .rdvsContainer h1{
+    font-size: 40px;
+  }
+  .rdvsContainer .rdvCard{
+    width: 80%;
+  }
+  .rdvCard h2, .rdvCard span{
+    font-size: 18px;
+  }
+}
 
 
 @media screen and (max-width: 480px) {
@@ -1521,6 +1574,9 @@ form #comment{
   }
   .user a{
     width: 30px;
+  }
+  .rdvCard h2, .rdvCard span, .rdvCard button{
+    font-size: 14px;
   }
 
 }

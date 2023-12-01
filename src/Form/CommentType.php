@@ -17,6 +17,9 @@ class CommentType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre du commentaire'
             ])
+            ->add('content', TextareaType::class, [
+                'label' => 'Contenu du commentaire'
+            ])
         ;
     }
 

@@ -94,9 +94,8 @@ class RdvController extends AbstractController
     return $this->json($availableSlots);
 }
 
-
 #[Route("/reserve-slot", name:"reserve_slot", methods:["POST"])]
-public function reserveSlot(Request $request, EntityManagerInterface $em,UserRepository $userRepository)
+public function reserveSlot(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response
 {
     $pattern = '/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})-(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})$/';
     $selectedSlotsStr = $request->request->get('selectedSlot');
@@ -118,7 +117,14 @@ public function reserveSlot(Request $request, EntityManagerInterface $em,UserRep
             $user = $userRepository->findOneBy(['email' => $user_email]);
             $reservation->setUser($user);
         } else {
-            $reservation->setUser($currentUser);
+            // Vérifiez que $currentUser est une instance de User
+            if ($currentUser instanceof User) {
+                $reservation->setUser($currentUser);
+            } else {
+                // Gérez le cas où $currentUser n'est pas une instance de User
+                // Par exemple, vous pouvez générer une erreur ou rediriger
+                return $this->redirectToRoute('erreur_page');
+            }
         }
 
         $details = $request->request->get('details');
@@ -131,17 +137,16 @@ public function reserveSlot(Request $request, EntityManagerInterface $em,UserRep
         $em->persist($reservation);
         $em->flush();
 
-        $this->addFlash('success', 'Le rendez-vous a bien était enregistré!');
-        if (in_array("ROLE_ADMIN", $currentRole)){
+        $this->addFlash('success', 'Le rendez-vous a bien été enregistré!');
+        if (in_array("ROLE_ADMIN", $currentRole)) {
             return $this->redirectToRoute('app_rdv_show');
+        } else {
+            return $this->redirectToRoute('confirmation_page');
         }
-        else{
-        return $this->redirectToRoute('confirmation_page');}
     } else {
         $this->addFlash('error', 'Il y a eu un problème lors de l\'enregistrement du rendez-vous');
-        return $this->redirectToRoute('app_rdv_appointements');
+        return $this->redirectToRoute('app_rdv_appointments');
     }
-
 }
 
 #[Route("/confirmation", name:"confirmation_page")]
@@ -161,7 +166,7 @@ public function updateRdvStatus()
 {
     $now = new \DateTimeImmutable();
 
-    // Utilisez une requête DQL pour trouver les rendez-vous passés et les mettre à jour
+    // Requête DQL pour trouver les rendez-vous passés et les mettre à jour
     $query = $this->entityManager->createQuery('
         UPDATE App\Entity\Rdv r
         SET r.status = 0
@@ -180,14 +185,13 @@ public function updateRdvStatus()
 
         $rdvsAVenir = $rdvRepository->findUpcomingByStatus();
 
-
         $eventsData = [];
         foreach ($rdvsAVenir as $rdv) {
         $eventsData[] = [
         'title' => $rdv->getUser()->getName(). " " .$rdv->getUser()->getFirstName(),
         'start' => $rdv->getHeureDebut()->format('Y-m-d H:i:s'),
         'end' => $rdv->getHeureFin()->format('Y-m-d H:i:s'),
-        'id' => $rdv->getId(), 
+        'id' => $rdv->getId(),
         ];
 }
         return $this->render('rdv/show.html.twig',[

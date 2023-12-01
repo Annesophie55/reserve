@@ -25,10 +25,6 @@ class Service
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $amount = null;
 
-
-
-
-
     public function getId(): ?int
     {
         return $this->id;

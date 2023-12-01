@@ -24,22 +24,23 @@
       {% elseif app.user and app.user.getRdv()|length > 0 %}
       <a href="{{ path('app_rdv_my_appointments') }}">Mes rendez-vous</a>
       {% endif %}
-    </li>    
+    </li>   
+    <li class="userFooter">
+      {% if app.user %}
+      {# Code à exécuter si un utilisateur est connecté #}
+      <a href="{{ path('app_logout') }}">Se déconnecter</a>
+      {% else %} 
+      {# Code à exécuter si aucun utilisateur n'est connecté#}
+      <a href="{{ path('app_login') }}">Se connecter</a>
+      {% endif %}
+  </li> 
   </ul> 
 
   <ul class="">
-    <li>Crédits photos: <a href="https://fr.vecteezy.com/photos-gratuite">Banque de photos par Vecteezy</a></li>
+    <li><a href="https://fr.vecteezy.com/photos-gratuite">Banque de photos par Vecteezy</a></li>
     <li><a href="">Conditions générales d'utilisation</a></li>
     <li><a href="">Lien vidéo doula</a></li>
-    <li class="userFooter">
-    {% if app.user %}
-    {# Code à exécuter si un utilisateur est connecté #}
-    <a href="{{ path('app_logout') }}">Se déconnecter</a>
-    {% else %} 
-    {# Code à exécuter si aucun utilisateur n'est connecté#}
-    <a href="{{ path('app_login') }}">Se connecter</a>
-    {% endif %}
-  </li>
+
   </ul>
   <div class="brandContainer">
     <div class="footerBrand">

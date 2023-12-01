@@ -25,7 +25,7 @@ class NoteType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $userId = $options['user']->getId(); // Assurez-vous que $options['user'] existe et est un objet User
+        $userId = $options['user']->getId();
         $builder
             ->add('Content',TextareaType::class, [
                 'label' => 'Ajouter une note de suivi de rendez-vous : ',

@@ -29,18 +29,13 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérez l'utilisateur actuellement connecté.
             $user = $this->getUser();
-            $content = $request->request->get('content');
-        
             if (!$user) {
                 throw $this->createAccessDeniedException('Vous devez être connecté pour ajouter un commentaire.');
             }
-    
-            // Liez le commentaire à l'utilisateur et définissez les autres champs.
+
             $comment->setUser($user)
-                    ->setCreatedAt(new \DateTimeImmutable())
-                    ->setContent($content);
+                    ->setCreatedAt(new \DateTimeImmutable());
             
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -50,7 +45,6 @@ class CommentController extends AbstractController
         }
     
         return $this->render('comment/new.html.twig', [
-            'comment' => $comment,
             'form' => $form->createView(),
         ]);
     }
@@ -86,18 +80,23 @@ class CommentController extends AbstractController
         return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/toggle', name: 'toggle_comment_valid', methods: ['POST'])]
-    public function toggleCommentValid(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
+    #[Route('/{commentId}/toggle', name: 'toggle_comment_valid', methods: ['GET'])]
+    public function toggleValid(Request $request, int $commentId, EntityManagerInterface $entityManager): Response
     {
-        $isValid = $request->request->get('commentSlider');
+        // Récupérez le commentaire existant depuis la base de données en fonction de l'ID
+        $comment = $entityManager->getRepository(Comment::class)->find($commentId);
+        
+        if (!$comment) {
+            throw $this->createNotFoundException('Commentaire introuvable');
+        }
     
-        // Mettez à jour l'état is_valid en fonction de la valeur du curseur
+        $isValid = $request->query->get('isValid');
+        
         $comment->setIsValid((bool) $isValid);
     
-        // Enregistrez les modifications en base de données
+    
         $entityManager->flush();
     
-        // Redirigez l'utilisateur vers la page d'origine ou une autre page
         return $this->redirectToRoute('app_comment_index');
     }
     

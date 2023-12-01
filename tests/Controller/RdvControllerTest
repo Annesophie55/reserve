@@ -1,0 +1,80 @@
+
+
+namespace App\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpFoundation\Response;
+use DateTimeImmutable;
+use App\Entity\Rdv;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+
+
+class RdvControllerTest extends WebTestCase
+{
+    private $client = null;
+    private $entityManager = null;
+    private $path = '/'; // Mettez ici le chemin de votre contrôleur
+
+    protected function setUp(): void
+    {
+        $this->client = static::createClient();
+        $this->entityManager = self::$container->get('doctrine')->getManager();
+    }
+
+    private function authenticateUser(User $user)
+    {
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        self::$container->get('security.token_storage')->setToken($token);
+    }
+
+    public function testReserveSlot()
+    {
+        // Créez un utilisateur fictif
+        $user = new User();
+        $user->setEmail('test@example.com');
+        // Définissez d'autres propriétés de l'utilisateur fictif selon vos besoins, par exemple, les rôles.
+
+        // Authentifiez l'utilisateur fictif
+        $this->authenticateUser($user);
+
+        // Démarrez une transaction pour isoler le test de la base de données
+        $this->entityManager->getConnection()->beginTransaction();
+
+        try {
+            $originalNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
+
+            // Requête POST pour réserver un créneau avec des données appropriées
+            $postData = [
+                'selectedSlot' => '2023-09-19 09:00:00-2023-09-19 10:30:00',
+                'details' => 'Voici les détails du rdv',
+                'email' => 'admin@example.com', // Ajoutez l'email de l'utilisateur fictif
+            ];
+
+            $this->client->request('POST', '/reserve-slot', [], [], [], json_encode($postData));
+
+            // Vérifie que la réponse est un code de statut 200 OK
+            $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+            // Vérifie les données dans la base de données
+            $newNumObjectsInRepository = count($this->entityManager->getRepository(Rdv::class)->findAll());
+            $this->assertSame($originalNumObjectsInRepository + 1, $newNumObjectsInRepository);
+
+            // Vérifie les valeurs de l'entité Rdv enregistrée dans la base de données
+            $savedRdv = $this->entityManager->getRepository(Rdv::class)->findOneBy(['createdAt' => new DateTimeImmutable('2023-09-19')]);
+            $this->assertNotNull($savedRdv);
+            $this->assertSame(true, $savedRdv->getStatus());
+            $this->assertSame('Voici les détails du rdv', $savedRdv->getDetails());
+            $this->assertInstanceOf(User::class, $savedRdv->getUser()); // Vérifie que l'utilisateur est une instance de la classe User
+        } catch (\Exception $e) {
+            // En cas d'erreur, annulez la transaction
+            $this->entityManager->getConnection()->rollBack();
+            throw $e; // Vous pouvez relancer l'exception pour que PHPUnit la signale comme échec
+        }
+
+        // Commit de la transaction à la fin du test pour enregistrer les modifications
+        $this->entityManager->getConnection()->commit();
+    }
+}
+

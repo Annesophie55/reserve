@@ -23,21 +23,14 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        
-      
-
     </head>
     <body>
         {% if app.flashes %}
             {% include 'components/_flash_messages.html.twig' %}
         {% endif %}
-
         {% include "partials/_header.html.twig" %}
-
         {% block body %}        
-
-        {% endblock %}
-        
+        {% endblock %}        
         {% include "partials/_footer.html.twig" %}
         
         {% block javascripts %}
